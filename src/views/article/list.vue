@@ -1,25 +1,31 @@
 <!-- @format -->
 
 <template>
-  <div class="main">
-    <div class="head-bar">
-      <div class="btn btn-red">新建</div>
+  <div>
+    <div class="main">
+      <div class="article-list">
+        <list-item
+          v-for="(item, index) in articles"
+          :key="index"
+          :item="item"
+          @edit="edit"
+          @detail="detail"
+        ></list-item>
+      </div>
+      <div class="pagination">
+        <el-pagination
+          hide-on-single-page
+          background
+          layout="prev, pager, next"
+          :total="total"
+          :page-size="size"
+          :current-page="index"
+          @current-change="changePage"
+        >
+        </el-pagination>
+      </div>
     </div>
-    <div class="article-list">
-      <list-item v-for="(item, index) in articles" :key="index" :item="item"></list-item>
-    </div>
-    <div class="pagination">
-      <el-pagination
-        hide-on-single-page
-        background
-        layout="prev, pager, next"
-        :total="total"
-        :page-size="size"
-        :current-page="index"
-        @current-change="changePage"
-      >
-      </el-pagination>
-    </div>
+    <div class="btn-suspended-panel"><div class="btn btn-red" @click="add">新建</div></div>
   </div>
 </template>
 <script lang="ts">
@@ -32,6 +38,7 @@ import {ActionMethod} from 'vuex'
 import Article from '@/model/article'
 
 import listItem from './components/list-item.vue'
+import {Loading, Catch} from '@/plugins/decorators'
 
 const article = namespace('article')
 
@@ -50,14 +57,31 @@ export default class Articles extends Vue {
   total: number
 
   @article.Action
-  getArticles: ActionMethod
+  fetchList: ActionMethod
 
   async created() {
-    this.getArticles()
+    this.fetch(1)
   }
 
   changePage(index) {
-    console.log(index)
+    this.fetch(index)
+  }
+
+  @Catch
+  @Loading
+  async fetch(index) {
+    await this.fetchList(index)
+  }
+
+  edit(id: number) {
+    this.$router.push({name: 'ArticleEdit', params: {id: String(id)}})
+  }
+  add() {
+    this.$router.push({name: 'ArticleEdit'})
+  }
+
+  detail(id: number) {
+    this.$router.push({name: 'ArticleDetail', params: {id: String(id)}})
   }
 }
 </script>

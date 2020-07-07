@@ -58,7 +58,7 @@ export default class NavBar extends Vue {
 
 .nav-icon {
   color: #fff;
-  font-size: 32px;
+  font-size: 24px;
   display: block;
   margin-bottom: 10px;
   text-align: center;

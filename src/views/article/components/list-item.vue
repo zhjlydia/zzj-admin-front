@@ -1,7 +1,7 @@
 <!-- @format -->
 
 <template>
-  <div class="list-item">
+  <div class="list-item" @click="detail(item.id)">
     <div>
       <p class="title">{{ item.title }}</p>
       <div class="tag" v-for="(tag, index) in item.tags" :key="index">
@@ -17,14 +17,14 @@
       <div class="classification" v-if="item.classification">类别： {{ item.classification.title }}</div>
     </div>
     <div class="button-group">
-      <div class="btn btn-yellow">编辑</div>
+      <div class="btn btn-yellow" @click="edit(item.id)">编辑</div>
     </div>
   </div>
 </template>
 <script lang="ts">
 /** @format */
 
-import {Component, Vue, Prop} from 'vue-property-decorator'
+import {Component, Vue, Prop, Emit} from 'vue-property-decorator'
 import {namespace, State, Action} from 'vuex-class'
 import {ActionMethod} from 'vuex'
 const article = namespace('article')
@@ -33,6 +33,16 @@ const article = namespace('article')
 export default class ListItem extends Vue {
   @Prop()
   item: any
+
+  @Emit()
+  edit(id) {
+    return id
+  }
+
+  @Emit()
+  detail(id) {
+    return id
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -63,7 +73,7 @@ export default class ListItem extends Vue {
     align-items: center;
     .name {
       margin: 0 10px;
-      color: #ffc107;
+      color: #feba34;
     }
     .head {
       height: 30px;
@@ -72,7 +82,7 @@ export default class ListItem extends Vue {
     }
     .time {
       margin-left: 10px;
-      color: #ffc107;
+      color: #feba34;
     }
   }
   .classification {

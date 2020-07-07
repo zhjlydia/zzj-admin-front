@@ -30,6 +30,12 @@ export const actions: ActionTree<State, Root> = {
     setToken(token)
     commit('M_SET_TOKEN', token)
   },
+  async logout({commit}) {
+    const token = ''
+    setToken(token)
+    commit('M_SET_TOKEN', token)
+    commit('M_SET_USER', null)
+  },
   async getUser({commit}) {
     const res: User.RawData = await http.get('user')
     commit('M_SET_USER', new User(res))
