@@ -75,10 +75,10 @@ export const constantRoutes: RouteConfig[] = [
     ]
   },
   {
-    path: '/classification',
+    path: '/category',
     component: Layout,
-    redirect: '/classification/manage',
-    name: 'Classification',
+    redirect: '/category/manage',
+    name: 'Category',
     meta: {
       title: '分类&标签',
       icon: 'document'
@@ -86,13 +86,13 @@ export const constantRoutes: RouteConfig[] = [
     children: [
       {
         path: 'manage',
-        name: 'ClassificationManage',
+        name: 'CategoryManage',
         meta: {
           title: '分类&标签',
           icon: 'collection-tag'
         },
         // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-        component: () => import(/* webpackChunkName: "classificationManage" */ '@/views/classification/index.vue')
+        component: () => import(/* webpackChunkName: "categoryManage" */ '@/views/category/index.vue')
       }
     ]
   }

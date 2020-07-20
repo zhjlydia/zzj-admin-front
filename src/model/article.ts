@@ -1,7 +1,7 @@
 /** @format */
 import dayjs from 'dayjs'
 import User from './user'
-import Classification from './classification'
+import Category from './category'
 import Tag from './tag'
 
 class Article {
@@ -12,7 +12,7 @@ class Article {
   createdAt: string
   updatedAt?: string
   author?: User
-  classification?: Classification
+  category?: Category
   tags?: Tag[]
   constructor(data: Article.RawData) {
     this.id = data.id
@@ -22,7 +22,7 @@ class Article {
     this.createdAt = dayjs(data.createdAt).format('YYYY-MM-DD HH:mm')
     this.updatedAt = dayjs(data.updatedAt).format('YYYY-MM-DD HH:mm')
     this.author = new User(data.author)
-    this.classification = new Classification(data.classification)
+    this.category = new Category(data.category)
     this.tags = data.tags.map(item => {
       return new Tag(item)
     })
@@ -38,14 +38,14 @@ namespace Article {
     createdAt: Date
     updatedAt: Date
     author: User.RawData
-    classification: Classification.RawData
+    category: Category.RawData
     tags: Tag[]
   }
   export class ArticleVo {
     title: string
     description: string
     content: string
-    classificationId?: number
+    categoryId?: number
     tags: number[] = []
   }
 }

@@ -1,13 +1,13 @@
 /** @format */
-class Classification {
-  id: number
-  title: string
+class Category {
+  id?: number
+  title?: string
   description?: string
   createdAt?: string
   updatedAt?: string
-  constructor(data: Classification.RawData) {
-    this.id = data.id
-    this.title = data.title
+  constructor(data : Category.RawData) {
+    this.id = data.id || 0
+    this.title = data.title || ''
     if (data.description) {
       this.description = data.description
     }
@@ -20,14 +20,19 @@ class Classification {
   }
 }
 
-namespace Classification {
+namespace Category {
   export interface RawData {
-    id: number
-    title: string
+    id : number
+    title : string
     description?: string
     createdAt?: string
     updatedAt?: string
   }
+  export interface CategoryVo {
+    id : number;
+    title : string
+    description?: string
+  }
 }
 
-export default Classification
+export default Category

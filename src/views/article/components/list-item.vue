@@ -14,7 +14,7 @@
         发布于
         <span class="time">{{ item.createdAt }}</span>
       </div>
-      <div class="classification" v-if="item.classification">类别： {{ item.classification.title }}</div>
+      <div class="category" v-if="item.category">类别： {{ item.category.title }}</div>
     </div>
     <div class="button-group">
       <div class="btn btn-yellow" @click="edit(item.id)">编辑</div>
@@ -85,7 +85,7 @@ export default class ListItem extends Vue {
       color: #feba34;
     }
   }
-  .classification {
+  .category {
     margin-top: 10px;
   }
   .button-group {

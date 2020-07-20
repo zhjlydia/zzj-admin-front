@@ -13,17 +13,25 @@
             active-text-color="#feba34"
             :collapse-transition="false"
             mode="horizontal"
-            menu-trigger="click"
             unique-opened
+            menu-trigger="click"
           >
-            <nav-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
+            <nav-item
+              v-for="route in routes"
+              :key="route.path"
+              :item="route"
+              :base-path="route.path"
+            />
           </el-menu>
         </div>
       </div>
       <el-dropdown @command="dropdownCommand">
         <div class="header-user">
           <span>{{ name }}</span>
-          <img class="head" :src="head" />
+          <img
+            class="head"
+            :src="head"
+          />
         </div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="logout">退出</el-dropdown-item>
@@ -72,12 +80,13 @@ export default class NavBar extends Vue {
 .navBar {
   height: 80px;
   background: #566f86;
-  width: 100%;
   position: fixed;
   left: 0;
   top: 0;
+  right: 0;
   z-index: 1000;
   padding: 0 200px;
+  min-width: 1220px;
   .logo {
     height: 80px;
     margin-right: 40px;

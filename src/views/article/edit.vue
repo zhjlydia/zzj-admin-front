@@ -9,9 +9,9 @@
       <el-form-item label="摘要" prop="description">
         <el-input type="textarea" :rows="3" v-model="form.description" placeholder="请输入摘要"></el-input>
       </el-form-item>
-      <el-form-item label="类别" prop="classificationId">
-        <el-select v-model="form.classificationId" filterable placeholder="请选择类别">
-          <el-option v-for="item in classifications" :key="item.id" :label="item.title" :value="item.id"> </el-option>
+      <el-form-item label="类别" prop="categoryId">
+        <el-select v-model="form.categoryId" filterable placeholder="请选择类别">
+          <el-option v-for="item in categories" :key="item.id" :label="item.title" :value="item.id"> </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="标签">
@@ -44,11 +44,11 @@ import TagComponent from '@/components/tag.vue'
 
 import {Editor} from '@toast-ui/vue-editor'
 import Article from '@/model/article'
-import Classification from '@/model/classification'
+import Category from '@/model/category'
 import Tag from '@/model/tag'
 
 const article = namespace('article')
-const classification = namespace('classification')
+const category = namespace('category')
 const tag = namespace('tag')
 
 import {COLOR_ARRAY} from '@/common/constant'
@@ -71,11 +71,11 @@ export default class Articles extends Vue {
   @article.Mutation
   M_SET_ID: ActionMethod
 
-  @classification.State
-  classifications: Classification
+  @category.State
+  categories: Category
 
-  @classification.Action('fetchList')
-  fetchClassificationList: ActionMethod
+  @category.Action('fetchList')
+  fetchCategoryList: ActionMethod
 
   @tag.State
   tags: Tag
@@ -90,14 +90,14 @@ export default class Articles extends Vue {
   rules: object = {
     title: [{required: true, message: '请输入文章标题', trigger: 'blur'}],
     description: [{required: true, message: '请选择文章摘要', trigger: 'blur'}],
-    classificationId: [{required: true, message: '请选择类别', trigger: 'change'}]
+    categoryId: [{required: true, message: '请选择类别', trigger: 'change'}]
   }
 
   form: Article.ArticleVo = {
     title: '',
     description: '',
     content: '',
-    classificationId: null,
+    categoryId: null,
     tags: []
   }
   editorOptions: any = {}
@@ -118,7 +118,7 @@ export default class Articles extends Vue {
       await this.M_SET_ID(articleId)
       await this.init()
     }
-    await this.getClassificationList()
+    await this.getCategoryList()
     await this.getTagList()
   }
 
@@ -130,7 +130,7 @@ export default class Articles extends Vue {
         title: article.title,
         description: article.description,
         content: article.content,
-        classificationId: article.classification.id,
+        categoryId: article.category.id,
         tags:
           article.tags && article.tags.length
             ? article.tags.map(item => {
@@ -142,8 +142,8 @@ export default class Articles extends Vue {
     }
   }
 
-  async getClassificationList() {
-    await this.fetchClassificationList()
+  async getCategoryList() {
+    await this.fetchCategoryList()
   }
 
   async getTagList() {

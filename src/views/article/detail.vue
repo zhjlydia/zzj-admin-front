@@ -37,11 +37,11 @@ import 'highlight.js/styles/dark.css'
 import TagComponent from '@/components/tag.vue'
 
 import Article from '@/model/article'
-import Classification from '@/model/classification'
+import Category from '@/model/category'
 import Tag from '@/model/tag'
 
 const article = namespace('article')
-const classification = namespace('classification')
+const category = namespace('category')
 const tag = namespace('tag')
 
 import {COLOR_ARRAY} from '@/common/constant'

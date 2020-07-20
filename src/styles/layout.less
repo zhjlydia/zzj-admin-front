@@ -4,6 +4,72 @@
  * @format
  */
 
+.generate(100);
+
+.generate(@n, @i: 5) when (@i =< @n) {
+  .mar-@{i} {
+    margin: @i*1px;
+  }
+
+  .mar-l-@{i} {
+    margin-left: @i*1px;
+  }
+
+  .mar-r-@{i} {
+    margin-right: @i*1px;
+  }
+
+  .mar-t-@{i} {
+    margin-top: @i*1px;
+  }
+
+  .mar-b-@{i} {
+    margin-bottom: @i*1px;
+  }
+
+  .pad-@{i} {
+    padding: @i*1px;
+  }
+
+  .pad-l-@{i} {
+    padding-left: @i*1px;
+  }
+
+  .pad-r-@{i} {
+    padding-right: @i*1px;
+  }
+
+  .pad-t-@{i} {
+    padding-top: @i*1px;
+  }
+
+  .pad-b-@{i} {
+    padding-bottom: @i*1px;
+  }
+
+  .generate(@n, (@i + 5));
+}
+
+.generateHeight(100);
+
+.generateHeight(@n, @i: 10) when (@i =< @n) {
+  .height-@{i} {
+    height: @i*1px;
+  }
+
+  .generateHeight(@n, (@i + 10));
+}
+
+.generateLineHeight(100);
+
+.generateLineHeight(@n, @i: 10) when (@i =< @n) {
+  .line-height-@{i} {
+    line-height: @i*1px;
+  }
+
+  .generateLineHeight(@n, (@i + 10));
+}
+
 .clearfix:before,
 .clearfix:after {
   content: ' ';
@@ -85,4 +151,10 @@ input:-ms-input-placeholder {
 
 .flex-align-center {
   align-items: center;
+}
+
+.list-empty {
+  text-align: center;
+  color: #fff;
+  font-size: 30px;
 }

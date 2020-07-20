@@ -8,7 +8,7 @@ import {getToken} from '@/plugins/cookies'
 
 const whiteList = ['/login']
 
-router.beforeEach(async (to: Route, _: Route, next: any) => {
+router.beforeEach(async(to : Route, _ : Route, next : any) => {
   console.log(user.state)
   if (getToken()) {
     if (to.path === '/login') {
@@ -35,4 +35,4 @@ router.beforeEach(async (to: Route, _: Route, next: any) => {
   }
 })
 
-router.afterEach((to: Route) => {})
+router.afterEach((to : Route) => {})

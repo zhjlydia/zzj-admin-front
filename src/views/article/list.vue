@@ -3,29 +3,37 @@
 <template>
   <div>
     <div class="main">
-      <div class="article-list">
-        <list-item
-          v-for="(item, index) in articles"
-          :key="index"
-          :item="item"
-          @edit="edit"
-          @detail="detail"
-        ></list-item>
-      </div>
-      <div class="pagination">
-        <el-pagination
-          hide-on-single-page
-          background
-          layout="prev, pager, next"
-          :total="total"
-          :page-size="size"
-          :current-page="index"
-          @current-change="changePage"
-        >
-        </el-pagination>
+      <template v-if="articles.length">
+        <div class="article-list">
+          <list-item
+            v-for="(item, index) in articles"
+            :key="index"
+            :item="item"
+            @edit="edit"
+            @detail="detail"
+          ></list-item>
+        </div>
+        <div class="pagination">
+          <el-pagination
+            hide-on-single-page
+            background
+            layout="prev, pager, next"
+            :total="total"
+            :page-size="size"
+            :current-page="index"
+            @current-change="changePage"
+          >
+          </el-pagination>
+        </div>
+      </template>
+      <div class="list-empty mar-t-100" v-else>
+        这里空空如也
+        <div class="mar-t-20">
+          <div class="btn btn-red" @click="add">新建</div>
+        </div>
       </div>
     </div>
-    <div class="btn-suspended-panel"><div class="btn btn-red" @click="add">新建</div></div>
+    <div v-if="articles.length" class="btn-suspended-panel"><div class="btn btn-red" @click="add">新建</div></div>
   </div>
 </template>
 <script lang="ts">
@@ -90,6 +98,7 @@ export default class Articles extends Vue {
 .main {
   background: #435c70;
   padding: 30px;
+  min-height: 400px;
   .head-bar {
     margin-bottom: 20px;
   }

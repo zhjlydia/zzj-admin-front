@@ -4,7 +4,7 @@ import Vue from 'vue'
 import Vuex, {GetterTree, MutationTree, Store, ActionTree} from 'vuex'
 import * as user from './modules/user'
 import * as article from './modules/article'
-import * as classification from './modules/classification'
+import * as category from './modules/category'
 import * as tag from './modules/tag'
 
 Vue.use(Vuex)
@@ -40,5 +40,5 @@ export default new Store({
   mutations,
   actions,
   getters,
-  modules: {user, article, classification, tag}
+  modules: {user, article, category, tag}
 })

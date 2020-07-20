@@ -24,6 +24,11 @@
   line-height: 1;
 }
 
+.el-menu--collapse .el-menu .el-submenu,
+.el-menu--popup {
+  min-width: 0;
+}
+
 .el-menu.el-menu--horizontal {
   border-bottom: none;
 }
@@ -36,4 +41,60 @@
 .el-pagination.is-background .el-pager li:not(.disabled).active {
   background-color: #feba34;
   color: #fff;
+}
+
+.el-table {
+  color: #fff;
+}
+
+.el-table,
+.el-table__expanded-cell {
+  background-color: #50697f;
+}
+
+.el-table tr {
+  background-color: transparent;
+}
+
+.el-table th {
+  background-color: #486177;
+}
+
+.el-table td {
+  background-color: #50697f;
+}
+
+.el-table td,
+.el-table th.is-leaf {
+  border-bottom: 1px solid #415a70;
+}
+
+.el-table--border::after,
+.el-table--group::after,
+.el-table::before {
+  content: '';
+  position: absolute;
+  background-color: #415a70;
+  z-index: 1;
+}
+
+.el-table thead {
+  color: #fff;
+  font-weight: 500;
+}
+
+.el-table--enable-row-hover .el-table__body tr {
+  transition: all 0.2s ease;
+}
+
+.el-table--enable-row-hover .el-table__body tr:hover > td {
+  background-color: #567086;
+}
+
+.el-table .cell {
+  padding: 10px 20px;
+}
+
+.el-table th > .cell {
+  padding: 0 20px;
 }

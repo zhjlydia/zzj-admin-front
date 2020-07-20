@@ -2,7 +2,11 @@
 
 <template>
   <div>
-    <nav-bar :name="user ? user.username : ''" :head="user ? user.image : ''" @logout="logoutMethod"></nav-bar>
+    <nav-bar
+      :name="user ? user.username : ''"
+      :head="user ? user.image : ''"
+      @logout="logoutMethod"
+    ></nav-bar>
     <appMain />
   </div>
 </template>
