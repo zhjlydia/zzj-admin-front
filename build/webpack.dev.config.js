@@ -31,15 +31,19 @@ module.exports = merge(baseConfig, {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
-        pathRewrite: {'^/api': ''}
+        target: 'http://adminapi.zhouzhoujiang.com',
+        pathRewrite: {
+          '^/api': ''
+        },
+        changeOrigin: true,
+        logLevel: 'debug'
       }
     },
     contentBase: resolve('public'), // 让WEB服务器运行静态资源（index.html）
     hot: true,
     historyApiFallback: true,
     compress: true,
-    stats: 'errors-only' // 只在发生错误时输出
+    disableHostCheck: true
   },
   plugins: [new webpack.HotModuleReplacementPlugin()]
 })

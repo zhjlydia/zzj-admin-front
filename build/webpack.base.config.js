@@ -4,6 +4,7 @@ const path = require('path')
 const resolve = dir => path.resolve(__dirname, '..', dir)
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 module.exports = {
   output: {
     chunkFilename: '[name].[chunkhash].js',
@@ -31,7 +32,9 @@ module.exports = {
           },
           {
             loader: 'ts-loader',
-            options: {appendTsSuffixTo: [/\.vue$/]}
+            options: {
+              appendTsSuffixTo: [/\.vue$/]
+            }
           }
         ],
         include: resolve('src')
@@ -67,9 +70,7 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: resolve('public/index.html')
-    })
+    new HtmlWebpackPlugin({filename: 'index.html', template: resolve('public/index.html')}),
+    new FriendlyErrorsWebpackPlugin()
   ]
 }
