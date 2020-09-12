@@ -11,6 +11,7 @@
             :item="item"
             @edit="edit"
             @detail="detail"
+            @del="del"
           ></list-item>
         </div>
         <div class="pagination">
@@ -26,14 +27,19 @@
           </el-pagination>
         </div>
       </template>
-      <div class="list-empty mar-t-100" v-else>
+      <div
+        class="list-empty mar-t-100"
+        v-else
+      >
         这里空空如也
         <div class="mar-t-20">
-          <div class="btn btn-red" @click="add">新建</div>
+          <div
+            class="btn btn-red"
+            @click="add"
+          >新建</div>
         </div>
       </div>
     </div>
-    <div v-if="articles.length" class="btn-suspended-panel"><div class="btn btn-red" @click="add">新建</div></div>
   </div>
 </template>
 <script lang="ts">
@@ -67,6 +73,9 @@ export default class Articles extends Vue {
   @article.Action
   fetchList: ActionMethod
 
+  @article.Action
+  delete: ActionMethod
+
   async created() {
     this.fetch(1)
   }
@@ -84,6 +93,10 @@ export default class Articles extends Vue {
   edit(id: number) {
     this.$router.push({name: 'ArticleEdit', params: {id: String(id)}})
   }
+
+  async del(id: number) {
+    await this.delete(id)
+  }
   add() {
     this.$router.push({name: 'ArticleEdit'})
   }
@@ -95,6 +108,8 @@ export default class Articles extends Vue {
 </script>
 
 <style lang="less" scoped>
+/** @format */
+
 .main {
   background: #435c70;
   padding: 30px;

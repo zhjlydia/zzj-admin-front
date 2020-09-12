@@ -14,9 +14,11 @@ class Article {
   author?: User
   category?: Category
   tags?: Tag[]
+  image?:string
   constructor(data: Article.RawData) {
     this.id = data.id
     this.title = data.title
+    this.image = data.image
     this.description = data.description
     this.content = data.content
     this.createdAt = dayjs(data.createdAt).format('YYYY-MM-DD HH:mm')
@@ -40,12 +42,14 @@ namespace Article {
     author: User.RawData
     category: Category.RawData
     tags: Tag[]
+    image?:string
   }
   export class ArticleVo {
     title: string
     description: string
     content: string
     categoryId?: number
+    image?: string
     tags: number[] = []
   }
 }

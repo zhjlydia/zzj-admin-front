@@ -4,7 +4,10 @@
   <div class="navBar">
     <div class="bar">
       <div class="flex">
-        <div class="logo">周周酱记事本</div>
+        <img
+          class="logo"
+          src="http://cdn.zhouzhoujiang.com/blog/logo2.png"
+        />
         <div class="menu">
           <el-menu
             :default-active="activeMenu"
@@ -88,12 +91,10 @@ export default class NavBar extends Vue {
   padding: 0 200px;
   min-width: 1220px;
   .logo {
-    height: 80px;
     margin-right: 40px;
-    font-size: 32px;
-    line-height: 90px;
-    text-align: center;
-    color: #fff;
+    width: auto;
+    height: 60px;
+    margin-top: 10px;
   }
   .bar {
     margin: 0 auto;

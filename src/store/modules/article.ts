@@ -75,6 +75,12 @@ export const actions: ActionTree<State, Root> = {
   },
   async resetArticleDetail({commit}) {
     commit('M_SET_ARTICLE_DETAIL', null)
+  },
+  async delete({state}, id : number) {
+    if (!id) {
+      throw new Error('请选择要删除的类目')
+    }
+    return http.delete(`article/${id}`)
   }
 }
 

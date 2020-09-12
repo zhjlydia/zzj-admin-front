@@ -1,23 +1,56 @@
 <!-- @format -->
 
 <template>
-  <div class="list-item" @click="detail(item.id)">
-    <div>
+  <div
+    class="list-item"
+    @click="detail(item.id)"
+  >
+    <div style="flex:1;">
       <p class="title">{{ item.title }}</p>
-      <div class="tag" v-for="(tag, index) in item.tags" :key="index">
-        <el-tag size="small" type="danger" disable-transitions>{{ tag.content }}</el-tag>
+      <div
+        class="tag"
+        v-for="(tag, index) in item.tags"
+        :key="index"
+      >
+        <el-tag
+          size="small"
+          type="danger"
+          disable-transitions
+        >{{ tag.content }}</el-tag>
       </div>
       <div class="description">{{ item.description }}</div>
       <div class="author flex">
-        <img class="head" :src="item.author.image" alt="" />
+        <img
+          class="head"
+          :src="item.author.image"
+          alt=""
+        />
         <span class="name">{{ item.author.username }}</span>
         发布于
         <span class="time">{{ item.createdAt }}</span>
       </div>
-      <div class="category" v-if="item.category">类别： {{ item.category.title }}</div>
+      <div
+        class="category"
+        v-if="item.category"
+      >类别： {{ item.category.title }}</div>
     </div>
     <div class="button-group">
-      <div class="btn btn-yellow" @click="edit(item.id)">编辑</div>
+      <el-button
+        type="danger"
+        icon="el-icon-edit"
+        size="mini"
+        circle
+        plain
+        @click="edit(item.id)"
+      ></el-button>
+      <el-button
+        type="warning"
+        icon="el-icon-delete"
+        size="mini"
+        circle
+        plain
+        @click="del(item.id)"
+      ></el-button>
     </div>
   </div>
 </template>
@@ -40,6 +73,11 @@ export default class ListItem extends Vue {
   }
 
   @Emit()
+  del(id) {
+    return id
+  }
+
+  @Emit()
   detail(id) {
     return id
   }
@@ -50,7 +88,7 @@ export default class ListItem extends Vue {
 .list-item {
   color: #ececec;
   font-size: 14px;
-  padding: 30px 0;
+  padding: 40px 0;
   border-bottom: 1px solid #415a70;
   display: flex;
   justify-content: space-between;
@@ -61,7 +99,8 @@ export default class ListItem extends Vue {
     margin-bottom: 15px;
   }
   .description {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    line-height: 1.5;
   }
   .tag {
     display: inline-block;
@@ -71,6 +110,7 @@ export default class ListItem extends Vue {
   .author {
     display: flex;
     align-items: center;
+    font-size: 12px;
     .name {
       margin: 0 10px;
       color: #feba34;
@@ -86,11 +126,12 @@ export default class ListItem extends Vue {
     }
   }
   .category {
+    font-size: 12px;
     margin-top: 10px;
   }
   .button-group {
-    display: flex;
-    align-items: center;
+    width: 200px;
+    text-align: center;
   }
 }
 </style>

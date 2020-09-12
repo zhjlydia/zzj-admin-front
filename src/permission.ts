@@ -9,21 +9,26 @@ import {getToken} from '@/plugins/cookies'
 const whiteList = ['/login']
 
 router.beforeEach(async(to : Route, _ : Route, next : any) => {
-  console.log(user.state)
   if (getToken()) {
-    if (to.path === '/login') {
-      next({path: '/'})
-    } else {
+    if (to.path === '/login' && to.query.force){
+      console.log('lollll')
+      next()
+    }
+    else {
       if (!user.state.user) {
         try {
           let res = await store.dispatch('user/getUser')
           next()
         } catch (error) {
           console.log(error)
-          //   next({path: '/'})
+          next({ path: '/login', query: { force: true } })
         }
       } else {
-        next()
+        if (to.path === '/login') {
+          next({ path: '/' })
+        } else {
+          next()
+        }
       }
     }
   } else {

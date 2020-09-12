@@ -2,33 +2,111 @@
 
 <template>
   <div class="edit-article">
-    <el-form :model="form" :rules="rules" ref="articleForm" label-width="60px" class="edit-form">
-      <el-form-item label="标题" prop="title">
-        <el-input v-model="form.title" placeholder="请输入标题"></el-input>
-      </el-form-item>
-      <el-form-item label="摘要" prop="description">
-        <el-input type="textarea" :rows="3" v-model="form.description" placeholder="请输入摘要"></el-input>
-      </el-form-item>
-      <el-form-item label="类别" prop="categoryId">
-        <el-select v-model="form.categoryId" filterable placeholder="请选择类别">
-          <el-option v-for="item in categories" :key="item.id" :label="item.title" :value="item.id"> </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="标签">
-        <tag-component
-          v-for="(item, index) in tags"
-          :key="index"
-          :color="getColor(item.id)"
-          :selected="form.tags.indexOf(item.id) !== -1"
-          @click.native="toggleSelect(item.id)"
-          >{{ item.content }}</tag-component
-        >
-      </el-form-item>
+    <el-form
+      :model="form"
+      :rules="rules"
+      ref="articleForm"
+      label-width="60px"
+      class="edit-form"
+    >
+      <el-row :gutter="40">
+        <el-col :span="12">
+          <el-form-item
+            label="标题"
+            prop="title"
+          >
+            <el-input
+              v-model="form.title"
+              placeholder="请输入标题"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="摘要"
+            prop="description"
+          >
+            <el-input
+              type="textarea"
+              :rows="3"
+              v-model="form.description"
+              placeholder="请输入摘要"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="类别"
+            prop="categoryId"
+          >
+            <el-select
+              v-model="form.categoryId"
+              filterable
+              placeholder="请选择类别"
+            >
+              <el-option
+                v-for="item in categories"
+                :key="item.id"
+                :label="item.title"
+                :value="item.id"
+              > </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="标签">
+            <tag-component
+              v-for="(item, index) in tags"
+              :key="index"
+              :color="getColor(item.id)"
+              :selected="form.tags.indexOf(item.id) !== -1"
+              @click.native="toggleSelect(item.id)"
+            >{{ item.content }}</tag-component>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label="首图"
+            prop="image"
+          >
+            <el-upload
+              action="/api/article/upload"
+              :on-success="uploadImageSuccess.bind(this)"
+            >
+              <el-image
+                class="article-image"
+                :src="form.image"
+                v-if="form.image"
+              >
+              </el-image>
+              <div
+                v-else
+                class="image-upload"
+              >
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">点击上传</div>
+              </div>
+            </el-upload>
+          </el-form-item>
+        </el-col>
+      </el-row>
     </el-form>
     <div class="editor-wrap">
-      <editor ref="toastuiEditor" height="900px" initialEditType="markdown" previewStyle="vertical" />
+      <editor
+        ref="toastuiEditor"
+        height="900px"
+        initialEditType="markdown"
+        previewStyle="vertical"
+      />
     </div>
-    <div class="btn-suspended-panel"><div class="btn btn-purple" @click="submit">保存</div></div>
+    <div class="btn-suspended-panel">
+      <div
+        class="btn-suspended-panel-btn"
+        @click="submit"
+      ><i class="el-icon-document-checked"></i></div>
+      <el-upload
+        action="/api/article/upload"
+        :show-file-list="false"
+        :on-success="uploadSuccess.bind(this)"
+      >
+        <div class="btn-suspended-panel-btn"><i class="el-icon-picture-outline-round"></i></div>
+      </el-upload>
+
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -90,11 +168,13 @@ export default class Articles extends Vue {
   rules: object = {
     title: [{required: true, message: '请输入文章标题', trigger: 'blur'}],
     description: [{required: true, message: '请选择文章摘要', trigger: 'blur'}],
-    categoryId: [{required: true, message: '请选择类别', trigger: 'change'}]
+    categoryId: [{required: true, message: '请选择类别', trigger: 'change'}],
+    image: [{required: true}]
   }
 
   form: Article.ArticleVo = {
     title: '',
+    image: '',
     description: '',
     content: '',
     categoryId: null,
@@ -109,13 +189,30 @@ export default class Articles extends Vue {
     return COLOR_ARRAY[index]
   }
 
+  /**
+   * 文件上传成功后的回调函数
+   */
+  private uploadImageSuccess(res: any, file: File) {
+    this.form.image = res
+  }
+
+  /**
+   * 文件上传成功后的回调函数
+   */
+  private uploadSuccess(res: any, file: File) {
+    this.$alert(res, '', {
+      confirmButtonText: '确定',
+      customClass: 'article-upload-success-modal'
+    })
+  }
+
   @Catch
   @Loading
   async created() {
     const {id = 0} = this.$route.params
-    let articleId = Number(id)
+    let articleId = Number(id) || 0
+    await this.M_SET_ID(articleId)
     if (articleId) {
-      await this.M_SET_ID(articleId)
       await this.init()
     }
     await this.getCategoryList()
@@ -128,6 +225,7 @@ export default class Articles extends Vue {
       let article = this.articleDetail
       this.form = {
         title: article.title,
+        image: article.image,
         description: article.description,
         content: article.content,
         categoryId: article.category.id,
@@ -181,15 +279,38 @@ export default class Articles extends Vue {
 }
 </script>
 <style lang="less" scoped>
+/** @format */
+
 .edit-article {
+  background: #435c70;
   .edit-form {
-    background: #435c70;
     padding: 30px;
+  }
+  .image-upload {
+    width: 300px;
+    height: 150px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+    .el-icon-upload {
+      font-size: 40px;
+    }
+  }
+  .article-image {
+    width: 100%;
+    max-height: 280px;
   }
   .editor-wrap {
     padding: 30px;
     background: #fff;
     margin-bottom: 50px;
   }
+}
+</style>
+<style lang="less">
+/** @format */
+
+.article-upload-success-modal .el-message-box__message p {
+  word-break: break-all !important;
 }
 </style>

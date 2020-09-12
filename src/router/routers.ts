@@ -54,8 +54,18 @@ export const constantRoutes: RouteConfig[] = [
         component: () => import(/* webpackChunkName: "articleList" */ '@/views/article/list.vue')
       },
       {
-        path: 'edit',
+        path: 'edit/:id',
         name: 'ArticleEdit',
+        meta: {
+          title: '编辑笔记',
+          hidden: true
+        },
+        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+        component: () => import(/* webpackChunkName: "articleList" */ '@/views/article/edit.vue')
+      },
+      {
+        path: 'add',
+        name: 'ArticleAdd',
         meta: {
           title: '新建笔记'
         },
@@ -63,7 +73,7 @@ export const constantRoutes: RouteConfig[] = [
         component: () => import(/* webpackChunkName: "articleList" */ '@/views/article/edit.vue')
       },
       {
-        path: 'detail',
+        path: 'detail/:id',
         name: 'ArticleDetail',
         meta: {
           hidden: true,

@@ -2,7 +2,10 @@
 
 <template>
   <div>
-    <div class="article-detail" v-if="articleDetail">
+    <div
+      class="article-detail"
+      v-if="articleDetail"
+    >
       <div class="detail-body">
         <div class="article-header">
           <div>
@@ -12,16 +15,24 @@
               :key="index"
               :color="getColor(item.id)"
               :selected="true"
-              >{{ item.content }}</tag-component
-            >
+            >{{ item.content }}</tag-component>
           </div>
           <div class="time">
             <div>{{ articleDetail.createdAt }}</div>
           </div>
         </div>
-        <div class="content article__content" v-html="articleDetail.content" v-hljs-directive></div>
+        <div
+          class="content article__content"
+          v-html="articleDetail.content"
+          v-hljs-directive
+        ></div>
       </div>
-      <div class="btn-suspended-panel"><div class="btn btn-green" @click="edit">编辑</div></div>
+      <div class="btn-suspended-panel">
+        <div
+          class="btn-suspended-panel-btn"
+          @click="edit"
+        ><i class="el-icon-edit"></i></div>
+      </div>
     </div>
   </div>
 </template>
@@ -97,6 +108,8 @@ export default class ArticleDetail extends Vue {
 }
 </script>
 <style lang="less" scoped>
+/** @format */
+
 .article-detail {
   .detail-body {
     background: #435c70;

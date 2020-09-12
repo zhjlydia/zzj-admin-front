@@ -36,11 +36,26 @@
 
 .btn-suspended-panel {
   position: fixed;
-  width: 100px;
   text-align: center;
   top: 250px;
-  padding: 10px;
-  border-radius: 10px 0 0 10px;
-  background: #435c70;
-  margin-left: -100px;
+  margin-left: -80px;
+
+  &-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #435c70;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  [class*=' el-icon-'],
+  [class^='el-icon-'] {
+    font-size: 20px;
+    color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
