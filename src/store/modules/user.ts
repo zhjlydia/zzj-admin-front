@@ -1,9 +1,9 @@
 /** @format */
-import {ActionTree, GetterTree, MutationTree} from 'vuex'
-import {getToken, setToken, removeToken} from '@/plugins/cookies'
-import User from '@/model/user'
-import {State as Root} from '..'
 import http from '@/apis'
+import User from '@/model/user'
+import { setToken } from '@/plugins/cookies'
+import { ActionTree, MutationTree } from 'vuex'
+import { State as Root } from '..'
 
 export interface State {
   user: User
@@ -37,8 +37,8 @@ export const actions: ActionTree<State, Root> = {
     commit('M_SET_USER', null)
   },
   async getUser({commit}) {
-    const res: User.RawData = await http.get('user')
-    commit('M_SET_USER', new User(res))
+    const res: User = await http.get('user')
+    commit('M_SET_USER', res)
   }
 }
 

@@ -1,4 +1,5 @@
-import { Model } from '@/model/manage/crud'
+import { Options } from '@/model/common'
+import { Model } from '@/model/crud'
 import { dirty } from '@/utils/util'
 import { ActionTree, GetterTree, Module, MutationTree } from 'vuex'
 import { State as Root } from '..'
@@ -21,21 +22,9 @@ export interface State<T> {
    */
   total?: number
   /**
-   * 排序
-   */
-  sort?: [[string, 'desc' | 'asc']]
-  /**
-   * 筛选条件
-   */
-  filter?: { key: string; value: any }
-  /**
    * 当前选中对象
    */
   current?: T
-  /**
-   * 额外选项
-   */
-  options?: Options.FindOptions
 }
 
 interface Options<T> {
@@ -55,24 +44,19 @@ interface Options<T> {
    * 额外getters
    */
   getters?: GetterTree<State<T>, Root>
-  /**
-   * 默认排序
-   */
-  sort?: [[string, 'desc' | 'asc']]
 }
 export default function create<T extends { id: string | number }>(
   model: Partial<Model<T>>,
   options?: Options<T>
 ): Module<State<T>, Root> {
-  const { projection = null, actions = {}, mutations = {}, getters = {}, sort = null } = options || ({} as any)
+  const { projection = null, actions = {}, mutations = {}, getters = {} } = options || ({} as any)
   return {
     namespaced: true,
     state: () => ({
       items: null,
-      index: 0,
-      size: 20,
+      index: 1,
+      size: 10,
       total: null,
-      sort,
       filter: null,
       current: null,
       options: null
@@ -86,7 +70,7 @@ export default function create<T extends { id: string | number }>(
       /**
        * 当前页码(基于1)
        */
-      index: state => (state.index ? state.index + 1 : 1),
+      index: state => state.index,
       /**
        * 总页数
        */
@@ -94,18 +78,7 @@ export default function create<T extends { id: string | number }>(
       /**
        * 是否无记录
        */
-      empty: state => state.total === 0,
-      /**
-       * 过滤条件
-       */
-      filter: state =>
-        state.filter && state.filter.key && state.filter.value
-          ? {
-              [state.filter.key]: {
-                $like: `%${state.filter.value}%`
-              }
-            }
-          : null
+      empty: state => state.total === 0
     },
     mutations: {
       ...mutations,
@@ -122,15 +95,6 @@ export default function create<T extends { id: string | number }>(
       },
       setSize(state, value) {
         state.size = value
-      },
-      setSort(state, value) {
-        state.sort = value
-      },
-      setFilter(state, value) {
-        state.filter = value
-      },
-      setOptions(state, value) {
-        state.options = value
       }
     },
     actions: {
@@ -140,11 +104,7 @@ export default function create<T extends { id: string | number }>(
       async list({ commit, state, getters }) {
         const options: Options.ListOptions = {
           index: state.index,
-          size: state.size,
-          filter: Object.assign({}, (state.options && state.options.filter) || {}, getters.filter || {}),
-          populate: state.options && state.options.populate,
-          projection,
-          sort: state.sort
+          size: state.size
         }
         const res = await model.list(options)
         commit('setList', {
@@ -158,7 +118,7 @@ export default function create<T extends { id: string | number }>(
        * @param index 页码(基于1)
        */
       async jump({ dispatch, commit }, index: number) {
-        commit('setIndex', index - 1)
+        commit('setIndex', index)
         await dispatch('list')
       },
       /**
@@ -167,32 +127,6 @@ export default function create<T extends { id: string | number }>(
        */
       async resize({ dispatch, commit }, size: number) {
         commit('setSize', size)
-        commit('setIndex', 0)
-        await dispatch('list')
-      },
-      /**
-       * 重排序
-       */
-      async reorder({ dispatch, commit }, { prop, order }) {
-        commit('setSort', !order ? null : [[prop, order === 'descending' ? 'desc' : 'asc']])
-        commit('setIndex', 0)
-        await dispatch('list')
-      },
-      /**
-       * 查找
-       * @param keyword 关键字
-       */
-      async search({ dispatch, commit }, keyword: { key: string; value?: any }) {
-        commit('setFilter', keyword && keyword.key && keyword.value ? keyword : null)
-        commit('setIndex', 0)
-        await dispatch('list')
-      },
-      /**
-       * 匹配
-       * @param options 选项
-       */
-      async match({ dispatch, commit }, options: Options.FindOptions) {
-        commit('setOptions', options || null)
         commit('setIndex', 0)
         await dispatch('list')
       },
@@ -235,17 +169,9 @@ export default function create<T extends { id: string | number }>(
       },
       /**
        * 创建空对象
-       * @param id 克隆来源
        */
-      async draft({ commit }, id?: string | number) {
-        let data: Partial<T>
-        if (id) {
-          data = await model.get(id)
-          if (data) {
-            data = model.reset(data)
-          }
-        }
-        commit('setCurrent', data || {})
+      async draft({ commit }) {
+        commit('setCurrent', {})
       },
       /**
        * 删除当前对象
@@ -272,13 +198,10 @@ export default function create<T extends { id: string | number }>(
       resetList({ commit }) {
         commit('setList', {
           items: null,
-          index: 0,
+          index: 1,
           total: null
         })
-        commit('setSize', 20)
-        commit('setSort', sort)
-        commit('setFilter', null)
-        commit('setOptions', null)
+        commit('setSize', 10)
       },
       /**
        * 重置全部

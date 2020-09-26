@@ -1,22 +1,10 @@
-/** @format */
-class Tag {
-  id : number
-  content : string
-  constructor(data : Tag.RawData) {
-    this.id = data.id
-    this.content = data.content
-  }
-}
+import crud from './crud'
 
-namespace Tag {
-  export interface RawData {
-    id : number
-    content : string
-  }
-  export interface TagVo {
-    id?: number
-    content : string
-  }
+export namespace Tag{
+  export interface Item {
+    id: number
+  content: string
+  }  
+  export const Actions=crud<Tag.Item>('/tag')
 }
-
 export default Tag

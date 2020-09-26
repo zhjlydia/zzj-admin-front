@@ -1,8 +1,8 @@
 /** @format */
 
 import Layout from '@/layout/index.vue'
+import { RouteConfig } from 'vue-router'
 
-import {RouteConfig} from 'vue-router'
 /** 固定路由 无权限控制 */
 export const constantRoutes: RouteConfig[] = [
   {
@@ -48,61 +48,55 @@ export const constantRoutes: RouteConfig[] = [
         path: 'list',
         name: 'ArticleList',
         meta: {
-          title: '笔记列表'
+          title: '笔记列表',
+          icon: 'document'
         },
         // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-        component: () => import(/* webpackChunkName: "articleList" */ '@/views/article/list.vue')
-      },
-      {
-        path: 'edit/:id',
-        name: 'ArticleEdit',
-        meta: {
-          title: '编辑笔记',
-          hidden: true
-        },
-        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-        component: () => import(/* webpackChunkName: "articleList" */ '@/views/article/edit.vue')
-      },
-      {
-        path: 'add',
-        name: 'ArticleAdd',
-        meta: {
-          title: '新建笔记'
-        },
-        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-        component: () => import(/* webpackChunkName: "articleList" */ '@/views/article/edit.vue')
-      },
-      {
-        path: 'detail/:id',
-        name: 'ArticleDetail',
-        meta: {
-          hidden: true,
-          title: '笔记详情'
-        },
-        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-        component: () => import(/* webpackChunkName: "articleDetail" */ '@/views/article/detail.vue')
+        component: () => import(/* webpackChunkName: "articleList" */ '@/views/lists/article.vue')
       }
     ]
   },
   {
     path: '/category',
     component: Layout,
-    redirect: '/category/manage',
+    redirect: '/category/list',
     name: 'Category',
     meta: {
-      title: '分类&标签',
+      title: '分类',
       icon: 'document'
     },
     children: [
       {
-        path: 'manage',
-        name: 'CategoryManage',
+        path: 'list',
+        name: 'CategoryList',
         meta: {
-          title: '分类&标签',
+          title: '分类',
           icon: 'collection-tag'
         },
         // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-        component: () => import(/* webpackChunkName: "categoryManage" */ '@/views/category/index.vue')
+        component: () => import(/* webpackChunkName: "categoryManage" */ '@/views/lists/category.vue')
+      }
+    ]
+  },
+  {
+    path: '/tag',
+    component: Layout,
+    redirect: '/tag/list',
+    name: 'Tag',
+    meta: {
+      title: '标签',
+      icon: 'document'
+    },
+    children: [
+      {
+        path: 'list',
+        name: 'TagList',
+        meta: {
+          title: '分类',
+          icon: 'collection-tag'
+        },
+        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+        component: () => import(/* webpackChunkName: "categoryManage" */ '@/views/lists/tag.vue')
       }
     ]
   }

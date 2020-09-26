@@ -1,57 +1,26 @@
 /** @format */
-import dayjs from 'dayjs'
-import User from './user'
 import Category from './category'
+import crud from './crud'
 import Tag from './tag'
+import User from './user'
 
-class Article {
-  id: number
-  title: string
-  description: string
-  content: string
-  createdAt: string
-  updatedAt?: string
-  author?: User
-  category?: Category
-  tags?: Tag[]
-  image?:string
-  constructor(data: Article.RawData) {
-    this.id = data.id
-    this.title = data.title
-    this.image = data.image
-    this.description = data.description
-    this.content = data.content
-    this.createdAt = dayjs(data.createdAt).format('YYYY-MM-DD HH:mm')
-    this.updatedAt = dayjs(data.updatedAt).format('YYYY-MM-DD HH:mm')
-    this.author = new User(data.author)
-    this.category = new Category(data.category)
-    this.tags = data.tags.map(item => {
-      return new Tag(item)
-    })
-  }
-}
-
-namespace Article {
-  export interface RawData {
+export namespace Article{
+  export interface Item {
     id: number
     title: string
     description: string
     content: string
     createdAt: Date
     updatedAt: Date
-    author: User.RawData
-    category: Category.RawData
-    tags: Tag[]
     image?:string
-  }
-  export class ArticleVo {
-    title: string
-    description: string
-    content: string
+    author: User
+    category: Category.Item
     categoryId?: number
-    image?: string
-    tags: number[] = []
-  }
+    tags: Tag.Item[]
+    tagIds: number[]
+  }  
+  export const Actions=crud<Article.Item>('/article')
 }
+
 
 export default Article

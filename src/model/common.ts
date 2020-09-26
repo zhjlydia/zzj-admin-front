@@ -1,3 +1,35 @@
+export namespace Options {
+  interface Filter {
+    /**
+     * 过滤
+     */
+    filter?: Record<string, any>
+  }
+  export interface Pagination {
+    /**
+     * 页面索引(基于0)
+     */
+    index?: number
+    /**
+     * 每页数量上限
+     */
+    size?: number
+  }
+  export type ListOptions = Filter & Pagination
+}
+/**
+ * 分页
+ */
+export interface PagenationData<T> extends Options.Pagination {
+  /**
+   * 数据列表
+   */
+  list: T[]
+  /**
+   * 总数
+   */
+  total: number
+}
 /**
  * 列表
  *
