@@ -30,7 +30,7 @@
         />
         <span class="name">{{ scope.row.author.username }}</span>
         发布于
-        <span class="time">{{ scope.row.createdAt }}</span>
+        <span class="time">{{ scope.row.createdAt | formatDate }}</span>
       </div>
       <div
         class="category"
@@ -46,10 +46,12 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import BasicList from './basic.vue'
+import {formatDate} from '@/utils/filters'
 import dayjs from 'dayjs'
 
 @Component({
-  components: { BasicList }
+  components: { BasicList },
+  filters:{formatDate}
 })
 export default class extends Vue {
 

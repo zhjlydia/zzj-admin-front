@@ -1,5 +1,5 @@
 <template>
-  <i>{{text}}</i>
+  <p>{{text}}</p>
 </template>
 
 <script lang="ts">

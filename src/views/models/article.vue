@@ -20,6 +20,12 @@
       <property
         prop="description"
         name="文章摘要"
+        type="textarea"
+      />
+      <property
+        prop="image"
+        name="主图"
+        type="image"
       />
       
       <property
