@@ -1,5 +1,6 @@
 <template>
   <el-main>
+    <div class="model-wrap">
     <property-table
       v-if="item"
       allow-refresh
@@ -21,6 +22,7 @@
         name="描述"
       />
     </property-table>
+    </div>
   </el-main>
 </template>
 

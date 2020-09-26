@@ -1,5 +1,6 @@
 <template>
   <el-main>
+    <div class="model-wrap">
     <property-table
       v-if="item"
       allow-refresh
@@ -33,6 +34,7 @@
         type="editor"
       />
     </property-table>
+    </div>
   </el-main>
 </template>
 

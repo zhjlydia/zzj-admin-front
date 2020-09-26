@@ -1,4 +1,5 @@
 <template>
+<div class="model-wrap">
   <el-main>
     <property-table
       v-if="item"
@@ -18,6 +19,7 @@
       />
     </property-table>
   </el-main>
+</div>
 </template>
 
 <script lang="ts">
