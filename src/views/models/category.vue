@@ -21,6 +21,12 @@
         prop="description"
         name="描述"
       />
+      <property
+        prop="module"
+        name="所属模块"
+        type="enum"
+        :options="{options:moduleTypes}"
+      />
     </property-table>
     </div>
   </el-main>
@@ -37,5 +43,16 @@ import Basic from './basic'
 })
 export default class extends Basic<Item.Item> {
   protected readonly modelName = '分类'
+
+  private moduleTypes=[
+    {
+      label:'article',
+      value:'article'
+    },
+    {
+      label:'project',
+      value:'project'
+    }
+  ]
 }
 </script>

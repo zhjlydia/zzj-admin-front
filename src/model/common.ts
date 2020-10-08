@@ -68,3 +68,8 @@ export interface PaginationOptions {
    */
   size?: number
 }
+
+export interface SelectOptions {
+  label:string
+  value:number|string
+}

@@ -27,7 +27,19 @@
         name="主图"
         type="image"
       />
-      
+      <property
+        prop="categoryId"
+        name="类别"
+        type="enum"
+        :options="{ options: item.options.category }"
+      />
+      <property
+        prop="tagIds"
+        name="标签"
+        type="enum"
+        :options="{ itemOptions:{options: item.options.tag} }"
+        array
+      />
       <property
         prop="createdAt"
         name="创建时间"

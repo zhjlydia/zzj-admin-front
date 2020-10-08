@@ -8,6 +8,11 @@
       label="标签"
     >
     </el-table-column>
+    <el-table-column
+      prop="module"
+      label="所属模块"
+    >
+    </el-table-column>
   </basic-list>
 </template>
 

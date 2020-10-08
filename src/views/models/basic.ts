@@ -64,7 +64,7 @@ export default class<T> extends Vue {
 
   get title() {
     const { id } = this.item || ({} as any)
-    return id == null ? '创建' + this.modelName : this.modelName + ' ' + id
+    return id == null ? '创建' + this.modelName : `${this.modelName}`
   }
 
   get isNew() {

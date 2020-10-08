@@ -48,7 +48,7 @@ export const constantRoutes: RouteConfig[] = [
         path: 'list',
         name: 'ArticleList',
         meta: {
-          title: '笔记列表',
+          title: '笔记',
           icon: 'document'
         },
         // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -62,38 +62,24 @@ export const constantRoutes: RouteConfig[] = [
     redirect: '/category/list',
     name: 'Category',
     meta: {
-      title: '分类',
+      title: '分类&标签',
       icon: 'document'
     },
     children: [
       {
-        path: 'list',
+        path: 'category',
         name: 'CategoryList',
         meta: {
-          title: '分类',
-          icon: 'collection-tag'
+          title: '分类'
         },
         // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
         component: () => import(/* webpackChunkName: "categoryManage" */ '@/views/lists/category.vue')
-      }
-    ]
-  },
-  {
-    path: '/tag',
-    component: Layout,
-    redirect: '/tag/list',
-    name: 'Tag',
-    meta: {
-      title: '标签',
-      icon: 'document'
-    },
-    children: [
+      },
       {
-        path: 'list',
+        path: 'tag',
         name: 'TagList',
         meta: {
-          title: '分类',
-          icon: 'collection-tag'
+          title: '标签'
         },
         // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
         component: () => import(/* webpackChunkName: "categoryManage" */ '@/views/lists/tag.vue')

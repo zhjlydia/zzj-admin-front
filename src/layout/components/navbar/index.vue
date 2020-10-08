@@ -3,10 +3,9 @@
 <template>
   <div class="navBar">
     <div class="bar">
-      <div class="flex">
         <img
           class="logo"
-          src="http://cdn.zhouzhoujiang.com/blog/logo2.png"
+          src="http://cdn.zhouzhoujiang.com/blog/logo-white.png"
         />
         <div class="menu">
           <el-menu
@@ -27,7 +26,6 @@
             />
           </el-menu>
         </div>
-      </div>
       <el-dropdown @command="dropdownCommand">
         <div class="header-user">
           <span>{{ name }}</span>
@@ -93,11 +91,12 @@ export default class NavBar extends Vue {
   .logo {
     margin-right: 40px;
     width: auto;
-    height: 60px;
-    margin-top: 10px;
+    height: 40px;
+  }
+  .menu{
+    flex-grow: 1;
   }
   .bar {
-    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -106,6 +105,7 @@ export default class NavBar extends Vue {
     color: #fff;
     display: flex;
     align-items: center;
+    width:120px;
     .head {
       width: 50px;
       height: 50px;

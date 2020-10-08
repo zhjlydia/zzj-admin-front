@@ -4,6 +4,7 @@ export namespace Category{
   export interface Item {
     id: number
     title: string
+    module: string
     description: string
     createdAt?: string
     updatedAt?: string

@@ -130,7 +130,6 @@ export default class extends Vue {
 .array-item {
   display: flex;
   &:not(:last-child) {
-    border-bottom: 1px solid #eee;
     padding-bottom: 8px;
     margin-bottom: 10px;
   }
