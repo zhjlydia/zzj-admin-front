@@ -15,6 +15,10 @@ export default {
         const res = await Article.Actions.getWithOptions(id)
         commit('setCurrent', res)
       },
+      async draft({commit}){
+        const res=await Article.Actions.getOptions()
+        commit('setCurrent', Object.assign({},{extra:res}))
+      }
     }
   }),
   tag: crud(Tag.Actions),

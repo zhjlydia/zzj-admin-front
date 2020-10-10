@@ -13,7 +13,7 @@ export default class extends Vue {
 
   @Prop({
     type: String,
-    default: 'YY-MM-DD HH:mm'
+    default: 'YYYY-MM-DD HH:mm'
   })
   format: string
 

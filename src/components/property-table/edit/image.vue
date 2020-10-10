@@ -14,7 +14,7 @@
     >
     <i
       v-else
-      class="el-icon-plus"
+      class="el-icon-upload"
     ></i>
   </el-upload>
 </template>

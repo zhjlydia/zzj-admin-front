@@ -31,14 +31,13 @@
         prop="categoryId"
         name="类别"
         type="enum"
-        :options="{ options: item.options.category }"
+        :options="{ options: item.extra.category }"
       />
       <property
         prop="tagIds"
         name="标签"
-        type="enum"
-        :options="{ itemOptions:{options: item.options.tag} }"
-        array
+        type="check"
+        :options="{options: item.extra.tag}"
       />
       <property
         prop="createdAt"

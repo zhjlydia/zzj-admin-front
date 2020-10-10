@@ -45,7 +45,7 @@ interface Options<T> {
    */
   getters?: GetterTree<State<T>, Root>
 }
-export default function create<T extends { id: string | number }>(
+export default function create<T extends { id: string | number , extra? : any}>(
   model: Partial<Model<T>>,
   options?: Options<T>
 ): Module<State<T>, Root> {
@@ -127,7 +127,7 @@ export default function create<T extends { id: string | number }>(
        */
       async resize({ dispatch, commit }, size: number) {
         commit('setSize', size)
-        commit('setIndex', 0)
+        commit('setIndex', 1)
         await dispatch('list')
       },
       /**
@@ -148,6 +148,7 @@ export default function create<T extends { id: string | number }>(
           throw new Error('当前对象不存在')
         }
         delete data.id
+        delete data.extra
         const payload = dirty(current, data)
         if (payload) {
           await model.update(current.id, payload)
@@ -159,31 +160,29 @@ export default function create<T extends { id: string | number }>(
        * 创建对象
        * @param data 数据
        */
-      async add({ dispatch, commit }, data: Partial<T>) {
+      async add({ dispatch }, data: Partial<T>) {
         delete data.id
+        delete data.extra
         const item = await model.add(data)
-        commit('setIndex', 0)
-        commit('setCurrent', item)
-        await dispatch('list')
+        await dispatch('get', item.id)
         return item && item.id
       },
       /**
-       * 创建空对象
+       * 创建初始对象
        */
       async draft({ commit }) {
         commit('setCurrent', {})
       },
       /**
-       * 删除当前对象
+       * 删除对象
        */
-      async remove({ state, commit, dispatch }) {
-        const current = state.current
-        if (!current) {
+      async remove({ commit, dispatch }, id: number) {
+        if (!id) {
           throw new Error('当前对象不存在')
         }
-        await model.remove(current.id)
+        await model.remove(id)
         commit('setCurrent', null)
-        commit('setIndex', 0)
+        commit('setIndex', 1)
         await dispatch('list')
       },
       /**

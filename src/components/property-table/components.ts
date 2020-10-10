@@ -1,7 +1,7 @@
 import { Property } from './types'
 
 export default {
-  CheckValue: () => import('./read/check.vue'),
+  SwitchValue: () => import('./read/switch.vue'),
   ColorValue: () => import('./read/color.vue'),
   DateValue: () => import('./read/date.vue'),
   ImageValue: () => import('./read/image.vue'),
@@ -13,7 +13,8 @@ export default {
   FileValue: () => import('./read/file.vue'),
   HtmlValue: () => import('./read/html.vue'),
   EditorValue: () => import('./read/editor.vue'),
-  CheckField: () => import('./edit/check.vue'),
+  CheckValue: () => import('./read/check.vue'),
+  SwitchField: () => import('./edit/switch.vue'),
   ColorField: () => import('./edit/color.vue'),
   DateField: () => import('./edit/date.vue'),
   ImageField: () => import('./edit/image.vue'),
@@ -27,6 +28,7 @@ export default {
   FileField: () => import('./edit/file.vue'),
   Codemirror: () => import('../codemirror.vue'),
   EditorField: () => import('./edit/editor.vue'),
+  CheckField: () => import('./edit/check.vue'),
 }
 
 export const viewMap: Record<Property.Type, string> = {
@@ -34,13 +36,14 @@ export const viewMap: Record<Property.Type, string> = {
   number: 'plain-value',
   textarea: 'plain-value',
   json: 'json-value',
-  bool: 'check-value',
+  bool: 'switch-value',
   date: 'date-value',
   color: 'color-value',
   image: 'image-value',
   video: 'video-value',
   object: 'object-value',
   enum: 'enum-value',
+  check: 'check-value',
   file: 'file-value',
   html: 'html-value',
   editor: 'editor-value',
@@ -51,7 +54,7 @@ export const editMap: Record<Property.Type, string> = {
   number: 'number-field',
   textarea: 'textarea-field',
   json: 'json-field',
-  bool: 'check-field',
+  bool: 'switch-field',
   date: 'date-field',
   color: 'color-field',
   image: 'image-field',
@@ -61,4 +64,5 @@ export const editMap: Record<Property.Type, string> = {
   file: 'file-field',
   html: 'plain-field',
   editor: 'editor-field',
+  check: 'check-field'
 }

@@ -1,7 +1,7 @@
 <template>
   <el-tag
     v-if="text"
-    type="info"
+    effect="dark"
   >{{text}}</el-tag>
   <div v-else></div>
 </template>

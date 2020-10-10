@@ -30,6 +30,7 @@ export declare namespace Property {
     | 'file'
     | 'html'
     | 'editor'
+    | 'check'
   type Router = RawLocation
   type Serializer = (value: any, raw: any) => any
   type Deserializer = (value: any) => any

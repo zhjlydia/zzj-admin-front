@@ -1,32 +1,36 @@
 <template>
-  <el-switch
-    :value="safeValue"
-    @input="input"
-  />
+    <el-checkbox-group :value="safeValue" @input="input">
+        <el-checkbox style="margin-bottom:10px" v-for="(item,i) in options" :key="i" :label="item.value">{{item.label}}</el-checkbox>
+    </el-checkbox-group>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
+interface Option {
+  value: string
+  label?: string
+}
 
 @Component
 export default class extends Vue {
   @Prop({
-    type: [Boolean, Number, String]
+    type: Array
   })
-  value: boolean | number | string
+  value: string[] | number[]
 
   @Prop({
-    type: Boolean
+    type: Array
   })
-  invert: boolean
+  options: Option[]
 
   get safeValue() {
-    return this.invert ? !this.value : !!this.value
+    return this.value || []
   }
 
   @Emit()
   input(e) {
-    return this.invert ? !e : e
+      console.log(e)
+    return e
   }
 }
 </script>

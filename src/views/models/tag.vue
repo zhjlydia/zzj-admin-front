@@ -48,6 +48,10 @@ export default class extends Basic<Item.Item> {
     {
       label:'project',
       value:'project'
+    },
+    {
+      label:'common',
+      value:'common'
     }
   ]
 }

@@ -14,7 +14,7 @@
     >
     <i
       v-else
-      class="el-icon-plus"
+      class="el-icon-video-camera-solid"
     ></i>
   </el-upload>
 </template>

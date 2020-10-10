@@ -20,17 +20,11 @@ export namespace Article{
     categoryId?: number
     tags: Tag.Item[]
     tagIds?: number[]
-    options:Record<string,SelectOptions[]>
+    extra?:Record<string,SelectOptions[]>
   }  
   export const Actions={
     ...crud<Article.Item>('/article'),
-    async getWithOptions(id:number|string):Promise<Article.Item>{
-      const res: Article.Item = (await http.get(`/article/${id}`)) as any
-      if(!res) {
-        return res
-      }
-      res.categoryId=res.category?res.category.id:null;
-      res.tagIds=res.tags?res.tags.map((item)=>{return item.id}):[];
+    async getOptions():Promise<Record<string,SelectOptions[]>>{
       const categories:PagenationData<Category.Item>=(await http.get('/category/all',{ params: {index:1,size:1000,module:'article'} })) as any
       const categoryOptions=categories.list.map((item:Category.Item)=>{
         return {
@@ -45,10 +39,20 @@ export namespace Article{
           value:item.id
         }
       })
-      res.options={
+      return {
         category:categoryOptions,
         tag:tagOptions
       }
+    },
+    async getWithOptions(id:number|string):Promise<Article.Item>{
+      const res: Article.Item = (await http.get(`/article/${id}`)) as any
+      if(!res) {
+        return res
+      }
+      res.categoryId=res.category?res.category.id:null;
+      res.tagIds=res.tags?res.tags.map((item)=>{return item.id}):[];
+      const options = await this.getOptions()
+      res.extra = options
       return res
     }
   }

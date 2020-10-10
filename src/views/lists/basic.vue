@@ -56,7 +56,6 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import { mapState, mapGetters, mapActions, ActionMethod } from 'vuex'
-import inflection from 'inflection'
 import { Loading, Catch,Debounce } from '@/plugins/decorators'
 import ModelDrawer from '../drawer.vue'
 
@@ -162,7 +161,6 @@ export default class extends Vue {
   }
 
   edit(id: number){
-      console.log(id)
     this.selected = id
     this.mode='edit'
   }
