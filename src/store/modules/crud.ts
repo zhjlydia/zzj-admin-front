@@ -164,8 +164,8 @@ export default function create<T extends { id: string | number , extra? : any}>(
         delete data.id
         delete data.extra
         const item = await model.add(data)
-        await dispatch('get', item.id)
-        return item && item.id
+        await dispatch('get', item)
+        return item
       },
       /**
        * 创建初始对象

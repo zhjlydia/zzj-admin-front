@@ -8,7 +8,6 @@
     <div
     class="list-item"
   >
-    <div style="flex:1;">
       <p class="title">{{ scope.row.title }}</p>
       <div
         class="tag"
@@ -37,7 +36,6 @@
         v-if="scope.row.category"
       >类别： {{ scope.row.category.title }}</div>
     </div>
-        </div>
     </div>
     </el-table-column>
   </basic-list>
@@ -62,8 +60,6 @@ export default class extends Vue {
 .list-item {
   color: #ececec;
   font-size: 14px;
-  display: flex;
-  justify-content: space-between;
   cursor: pointer;
   .title {
     font-size: 16px;
@@ -77,7 +73,7 @@ export default class extends Vue {
   .tag {
     display: inline-block;
     margin-right: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
   .author {
     display: flex;

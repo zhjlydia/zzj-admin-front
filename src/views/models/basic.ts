@@ -102,9 +102,7 @@ export default class<T> extends Vue {
       return
     }
     if (this.isNew) {
-      return this.add(data).then((id: string) =>
-        console.log("创建成功")
-      )
+      return this.add(data)
     }
     return this.update(data)
   }

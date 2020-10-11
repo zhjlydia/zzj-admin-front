@@ -21,7 +21,22 @@ export default {
       }
     }
   }),
+  project: crud(Project.Actions,{
+    actions:{
+      /**
+       * 获取对象
+       * @param id ID
+       */
+      async get({ commit }, id: string | number) {
+        const res = await Project.Actions.getWithOptions(id)
+        commit('setCurrent', res)
+      },
+      async draft({commit}){
+        const res=await Project.Actions.getOptions()
+        commit('setCurrent', Object.assign({},{extra:res}))
+      }
+    }
+  }),
   tag: crud(Tag.Actions),
-  category: crud(Category.Actions),
-  project: crud(Project.Actions)
+  category: crud(Category.Actions)
 }

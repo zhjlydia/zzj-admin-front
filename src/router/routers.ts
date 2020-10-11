@@ -57,13 +57,35 @@ export const constantRoutes: RouteConfig[] = [
     ]
   },
   {
+    path: '/project',
+    component: Layout,
+    redirect: '/project/list',
+    name: 'Project',
+    meta: {
+      title: '项目',
+      icon: 's-flag'
+    },
+    children: [
+      {
+        path: 'list',
+        name: 'ProjectList',
+        meta: {
+          title: '项目',
+          icon: 's-flag'
+        },
+        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+        component: () => import(/* webpackChunkName: "projectList" */ '@/views/lists/project.vue')
+      }
+    ]
+  },
+  {
     path: '/category',
     component: Layout,
     redirect: '/category/list',
     name: 'Category',
     meta: {
-      title: '分类&标签',
-      icon: 'document'
+      title: '标签',
+      icon: 'collection'
     },
     children: [
       {

@@ -1,6 +1,6 @@
 <template>
   <el-upload
-    action="/api/v1/Common/UploadFile"
+    action="/api/share/upload"
     :data="params"
     :accept="accept"
     :show-file-list="false"

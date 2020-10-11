@@ -14,19 +14,31 @@
       @remove="remove"
     >
       <property
-        prop="title"
-        name="文章标题"
+        prop="name"
+        name="项目名称"
       />
       <property
         prop="description"
-        name="文章摘要"
+        name="项目摘要"
         type="textarea"
       />
       <property
         prop="image"
         name="主图"
         type="image"
-        :options="{folder:'article'}"
+        :options="{folder:'project'}"
+      />
+      <property
+        prop="github"
+        name="仓库地址"
+      />
+      <property
+        prop="role"
+        name="角色"
+      />
+      <property
+        prop="url"
+        name="预览地址"
       />
       <property
         prop="categoryId"
@@ -41,6 +53,16 @@
         :options="{options: item.extra.tag}"
       />
       <property
+        prop="startedAt"
+        name="开始时间"
+        type="date"
+      />
+      <property
+        prop="endedAt"
+        name="结束时间"
+        type="date"
+      />
+      <property
         prop="createdAt"
         name="创建时间"
         readonly
@@ -48,7 +70,7 @@
       />
       <property
         prop="content"
-        name="文章内容"
+        name="项目内容"
         type="editor"
       />
     </property-table>
@@ -59,13 +81,13 @@
 <script lang="ts">
 import { Component } from 'vue-property-decorator'
 import { PropertyTable, Property } from '@/components/property-table'
-import Item from '@/model/article'
+import Item from '@/model/project'
 import Basic from './basic'
 
 @Component({
   components: { PropertyTable, Property }
 })
 export default class extends Basic<Item.Item> {
-  protected readonly modelName = '文章'
+  protected readonly modelName = '项目'
 }
 </script>

@@ -171,7 +171,7 @@ export default class extends Vue {
 </script>
 <style lang="less" scoped>
 .basic-table::v-deep {
-    padding:0 20px;
+    padding:0 20px 20px 20px;
     background:#486177;
   a {
     color: #409eff;
