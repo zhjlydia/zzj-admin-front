@@ -1,20 +1,13 @@
 <template>
-  <div
-    class="object-container"
-    :class="{border}"
-  >
+  <div class="object-container" :class="{ border }">
     <div
       v-for="(row, i) in rows"
       :key="i"
       v-show="!row.isHidden"
       class="prop-row"
     >
-      <div
-        class="prop-name"
-      >{{row.name}}</div>
-      <div
-        class="prop-value"
-      >
+      <div class="prop-name">{{ row.name }}</div>
+      <div class="prop-value">
         <template v-if="row.readonly">
           <component
             v-if="row.array"
@@ -111,10 +104,13 @@ export default class extends Vue {
     }
     return props.map(p => ({
       ...p,
-      value: p.deserializer ? p.deserializer.call(null, value[p.key]) : value[p.key],
+      value: p.deserializer
+        ? p.deserializer.call(null, value[p.key])
+        : value[p.key],
       viewComp: viewMap[p.type],
       editComp: editMap[p.type],
-      isHidden: typeof p.hidden === 'function' ? p.hidden.call(null, value) : p.hidden
+      isHidden:
+        typeof p.hidden === 'function' ? p.hidden.call(null, value) : p.hidden
     }))
   }
 
@@ -146,7 +142,6 @@ export default class extends Vue {
     margin-bottom: 20px;
   }
   .prop-name {
-    font-weight: bold;
     margin-right: 20px;
     width: 100px;
     flex-shrink: 0;

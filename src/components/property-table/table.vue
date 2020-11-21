@@ -24,13 +24,13 @@
     <div class="prop-table-menu">
       <template v-if="isEdit">
         <el-tooltip content="提交" placement="right">
-          <div class="menu-item">
-            <i class="el-icon-check" @click="onSubmit"></i>
+          <div class="menu-item" @click="onSubmit">
+            <i class="el-icon-check"></i>
           </div>
         </el-tooltip>
         <el-tooltip content="放弃修改" placement="right">
-          <div class="menu-item">
-            <i class="el-icon-close" @click="onDiscard"></i>
+          <div class="menu-item" @click="onDiscard">
+            <i class="el-icon-close"></i>
           </div>
         </el-tooltip>
         <el-tooltip content="上传文件" placement="right">
@@ -48,18 +48,18 @@
       </template>
       <template v-else>
         <el-tooltip v-if="allowRefresh" content="刷新" placement="right">
-          <div class="menu-item">
-            <i class="el-icon-refresh" @click="onRefresh"></i>
+          <div class="menu-item" @click="onRefresh">
+            <i class="el-icon-refresh"></i>
           </div>
         </el-tooltip>
         <el-tooltip v-if="allowEdit" content="编辑" placement="right">
-          <div class="menu-item">
-            <i class="el-icon-edit" @click="setEdit(true)"></i>
+          <div class="menu-item" @click="setEdit(true)">
+            <i class="el-icon-edit"></i>
           </div>
         </el-tooltip>
         <el-tooltip v-if="allowRemove" content="删除" placement="right">
-          <div class="menu-item">
-            <i class="el-icon-delete" @click="onRemove"></i>
+          <div class="menu-item" @click="onRemove">
+            <i class="el-icon-delete"></i>
           </div>
         </el-tooltip>
       </template>
@@ -210,9 +210,10 @@ export default class extends Vue {
 }
 .prop-table {
   position: relative;
-  background: #fff;
   border-radius: 10px;
   padding: 10px 30px;
+  color: #fff;
+  font-size: 14px;
   .prop-table-header {
     height: 60px;
     line-height: 60px;
@@ -226,17 +227,18 @@ export default class extends Vue {
     }
   }
   .prop-table-menu {
-    position: absolute;
-    right: -40px;
-    top: 100px;
+    position: fixed;
+    top: 200px;
+    margin-left: -80px;
     .menu-item {
-      width: 30px;
-      height: 30px;
-      line-height: 30px;
-      border-radius: 30px;
+      width: 35px;
+      height: 35px;
+      line-height: 35px;
+      border-radius: 35px;
       background: #fff;
       margin-bottom: 5px;
       text-align: center;
+      color: #566f86;
     }
   }
 

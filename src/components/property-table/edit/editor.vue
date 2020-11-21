@@ -1,22 +1,22 @@
 <template>
-<div class="editor-wrap">
+  <div class="editor-wrap">
     <editor
-        ref="toastuiEditor"
-        height="900px"
-        initialEditType="markdown"
-        previewStyle="vertical"
-        @change="input"
-      />
-    </div>
+      ref="toastuiEditor"
+      height="900px"
+      initialEditType="markdown"
+      previewStyle="vertical"
+      @change="input"
+    />
+  </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Emit,Watch } from 'vue-property-decorator'
+import { Vue, Component, Prop, Emit, Watch } from 'vue-property-decorator'
 import 'codemirror/lib/codemirror.css'
 import '@toast-ui/editor/dist/toastui-editor.css'
-import {Editor} from '@toast-ui/vue-editor'
+import { Editor } from '@toast-ui/vue-editor'
 
-@Component({components: {Editor}})
+@Component({ components: { Editor } })
 export default class extends Vue {
   @Prop()
   value: string
@@ -29,8 +29,8 @@ export default class extends Vue {
     return this.value || ''
   }
 
-  mounted(){
-      this.$refs.toastuiEditor.invoke('setHtml', this.safeValue)
+  mounted() {
+    this.$refs.toastuiEditor.invoke('setHtml', this.safeValue)
   }
 
   @Emit()
@@ -39,3 +39,8 @@ export default class extends Vue {
   }
 }
 </script>
+<style lang="less" scoped>
+.editor-wrap {
+  background: #fff;
+}
+</style>

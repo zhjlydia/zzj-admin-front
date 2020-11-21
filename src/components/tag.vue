@@ -8,7 +8,8 @@
 <script lang="ts">
 /** @format */
 
-import {Component, Vue, Prop, Emit} from 'vue-property-decorator'
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
+import { COLOR_ARRAY } from '@/common/constant'
 
 @Component
 export default class ListItem extends Vue {
@@ -20,22 +21,25 @@ export default class ListItem extends Vue {
 
   get styles() {
     return {
-      backgroundColor: this.selected ? this.color : 'transparent'
+      backgroundColor: this.selected ? this.color : 'transparent',
+      color: this.selected ? '#000' : '#fff',
+      borderColor: this.selected ? '#000' : '#fff'
     }
   }
 }
 </script>
 <style lang="less" scoped>
 .tag {
-  padding: 0 10px;
-  border-radius: 15px;
+  padding: 0 8px;
+  border-radius: 22px;
   border-width: 1px;
   margin-right: 5px;
-  height: 30px;
-  line-height: 28px;
+  height: 22px;
+  line-height: 20px;
   border: 1px solid #000;
   cursor: pointer;
-  color: #000;
   display: inline-block;
+  margin-bottom: 5px;
+  font-size: 12px;
 }
 </style>

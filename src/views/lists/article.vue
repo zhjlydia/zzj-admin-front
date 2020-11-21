@@ -1,42 +1,28 @@
 <template>
-  <basic-list
-    model="article"
-    allow-create
-  >
-  <el-table-column>
-    <div slot-scope="scope">
-    <div
-    class="list-item"
-  >
-      <p class="title">{{ scope.row.title }}</p>
-      <div
-        class="tag"
-        v-for="(tag, index) in scope.row.tags"
-        :key="index"
-      >
-        <el-tag
-          size="small"
-          type="danger"
-          disable-transitions
-        >{{ tag.content }}</el-tag>
+  <basic-list model="article" allow-create>
+    <el-table-column>
+      <div slot-scope="scope">
+        <div class="list-item">
+          <p class="title">{{ scope.row.title }}</p>
+          <tag
+            v-for="(tag, i) in scope.row.tags"
+            :key="i"
+            :color="getColor(i)"
+            :selected="true"
+            >{{ tag.content }}
+          </tag>
+          <div class="description">{{ scope.row.description }}</div>
+          <div class="author flex">
+            <img class="head" :src="scope.row.author.image" alt="" />
+            <span class="name">{{ scope.row.author.username }}</span>
+            发布于
+            <span class="time">{{ scope.row.createdAt | formatDate }}</span>
+          </div>
+          <div class="category" v-if="scope.row.category">
+            类别： {{ scope.row.category.title }}
+          </div>
+        </div>
       </div>
-      <div class="description">{{ scope.row.description }}</div>
-      <div class="author flex">
-        <img
-          class="head"
-          :src="scope.row.author.image"
-          alt=""
-        />
-        <span class="name">{{ scope.row.author.username }}</span>
-        发布于
-        <span class="time">{{ scope.row.createdAt | formatDate }}</span>
-      </div>
-      <div
-        class="category"
-        v-if="scope.row.category"
-      >类别： {{ scope.row.category.title }}</div>
-    </div>
-    </div>
     </el-table-column>
   </basic-list>
 </template>
@@ -44,15 +30,20 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import BasicList from './basic.vue'
-import {formatDate} from '@/utils/filters'
+import tag from '@/components/tag.vue'
+import { COLOR_ARRAY } from '@/common/constant'
+import { formatDate } from '@/utils/filters'
 import dayjs from 'dayjs'
 
 @Component({
-  components: { BasicList },
-  filters:{formatDate}
+  components: { BasicList, tag },
+  filters: { formatDate }
 })
 export default class extends Vue {
-
+  getColor(i: number) {
+    let index = i % COLOR_ARRAY.length
+    return COLOR_ARRAY[index]
+  }
 }
 </script>
 <style lang="less" scoped>

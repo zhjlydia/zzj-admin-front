@@ -1,8 +1,9 @@
 <template>
-    <div class="article__content"
-        v-html="safeValue"
-        v-hljs-directive
-    ></div>
+  <div
+    class="article__content article__wrap"
+    v-html="safeValue"
+    v-hljs-directive
+  ></div>
 </template>
 
 <script lang="ts">
@@ -32,3 +33,9 @@ export default class extends Vue {
   }
 }
 </script>
+<style lang="less" scoped>
+.article__wrap {
+  background: #fff;
+  border-radius: 10px;
+}
+</style>

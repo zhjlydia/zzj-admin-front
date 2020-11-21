@@ -1,6 +1,21 @@
 <template>
-  <el-drawer :visible="id != null" direction="rtl" size="100%" class="model-drawer" @close="onClose" @opened="onOpened">
-    <component v-if="id != null && ready" :is="model + '-model'" :id="id" :model="model" :mode="mode" />
+  <el-drawer
+    :visible="id != null"
+    direction="rtl"
+    size="90%"
+    class="model-drawer"
+    :show-close="false"
+    :withHeader="false"
+    @close="onClose"
+    @opened="onOpened"
+  >
+    <component
+      v-if="id != null && ready"
+      :is="model + '-model'"
+      :id="id"
+      :model="model"
+      :mode="mode"
+    />
   </el-drawer>
 </template>
 <script lang="ts">
@@ -8,12 +23,12 @@ import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
 import models from './models'
 
 @Component({
-  components: models,
+  components: models
 })
 export default class extends Vue {
   @Prop({
     type: String,
-    required: true,
+    required: true
   })
   model: string
 
@@ -21,7 +36,7 @@ export default class extends Vue {
   id: string | number
 
   @Prop()
-  mode: 'add' | 'edit' |'view'
+  mode: 'add' | 'edit' | 'view'
 
   private ready: boolean = false
 
