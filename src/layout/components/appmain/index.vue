@@ -2,10 +2,7 @@
 
 <template>
   <div class="app-main">
-    <transition
-      name="main"
-      mode="out-in"
-    >
+    <transition name="main" mode="out-in">
       <router-view />
     </transition>
   </div>
@@ -13,7 +10,7 @@
 <script lang="ts">
 /** @format */
 
-import {Component, Vue} from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component({})
 export default class AppMain extends Vue {}
@@ -22,7 +19,7 @@ export default class AppMain extends Vue {}
 /** @format */
 .app-main {
   margin: 0 auto;
-  padding: 120px 200px;
+  padding: 100px 200px;
   min-width: 1220px;
 }
 </style>

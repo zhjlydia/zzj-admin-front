@@ -23,7 +23,7 @@ export default class ListItem extends Vue {
     return {
       backgroundColor: this.selected ? this.color : 'transparent',
       color: this.selected ? '#000' : '#fff',
-      borderColor: this.selected ? '#000' : '#fff'
+      borderColor: this.selected ? this.color : '#fff'
     }
   }
 }
@@ -36,7 +36,8 @@ export default class ListItem extends Vue {
   margin-right: 5px;
   height: 22px;
   line-height: 20px;
-  border: 1px solid #000;
+  border-width: 1px;
+  border-style: solid;
   cursor: pointer;
   display: inline-block;
   margin-bottom: 5px;
