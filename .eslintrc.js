@@ -14,6 +14,7 @@ module.exports = {
     node: true
   },
   rules: {
+    '@typescript-eslint/no-namespace': 0,
     '@typescript-eslint/member-delimiter-style': 0
   }
 }
