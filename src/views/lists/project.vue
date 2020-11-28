@@ -21,6 +21,9 @@
             <div class="item" v-if="scope.row.category">
               类别： {{ scope.row.category.title }}
             </div>
+            <div class="item" v-if="scope.row.state">
+              项目状态： {{ scope.row.state }}
+            </div>
             <div class="item" v-if="scope.row.role">
               我的角色： {{ scope.row.role }}
             </div>

@@ -1,16 +1,35 @@
 <!-- @format -->
 
 <template>
-  <el-menu-item v-if="onlyChild && (!item.meta || !item.meta.hidden)" :index="resolvePath(onlyChild.path)">
-    <router-link class="router-link" slot="title" :to="resolvePath(onlyChild.path)">
-      <i v-if="onlyChild.meta.icon" class="nav-icon" :class="'el-icon-' + onlyChild.meta.icon"></i>
+  <el-menu-item
+    v-if="onlyChild && (!item.meta || !item.meta.hidden)"
+    :index="resolvePath(onlyChild.path)"
+  >
+    <router-link
+      class="router-link"
+      slot="title"
+      :to="resolvePath(onlyChild.path)"
+    >
+      <i
+        v-if="onlyChild.meta.icon"
+        class="nav-icon"
+        :class="'el-icon-' + onlyChild.meta.icon"
+      ></i>
       <span v-if="onlyChild.meta.title">{{ onlyChild.meta.title }}</span>
     </router-link>
   </el-menu-item>
 
-  <el-submenu v-else-if="!item.meta || !item.meta.hidden" :index="resolvePath(item.path)" popper-append-to-body>
+  <el-submenu
+    v-else-if="!item.meta || !item.meta.hidden"
+    :index="resolvePath(item.path)"
+    popper-append-to-body
+  >
     <template slot="title">
-      <i v-if="item.meta.icon" class="nav-icon" :class="'el-icon-' + item.meta.icon"></i>
+      <i
+        v-if="item.meta.icon"
+        class="nav-icon"
+        :class="'el-icon-' + item.meta.icon"
+      ></i>
       <span v-if="item.meta && item.meta.title">{{ item.meta.title }}</span>
     </template>
     <template v-if="item.children">
@@ -27,14 +46,14 @@
 <script lang="ts">
 /** @format */
 
-import {Component, Vue, Prop} from 'vue-property-decorator'
-import {RouteConfig} from 'vue-router'
-import {constantRoutes} from '@/router/routers'
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import { RouteConfig } from 'vue-router'
+import { constantRoutes } from '@/router/routers'
 
-@Component({name: 'nav-item', components: {}})
+@Component({ name: 'nav-item', components: {} })
 export default class NavBar extends Vue {
-  @Prop({required: true}) private item!: RouteConfig
-  @Prop({default: ''}) private basePath!: string
+  @Prop({ required: true }) private item!: RouteConfig
+  @Prop({ default: '' }) private basePath!: string
 
   get onlyChild() {
     if (this.item.children) {
@@ -43,13 +62,16 @@ export default class NavBar extends Vue {
       })
       return showingChildrens.length === 1 ? showingChildrens[0] : null
     } else {
-      return {...this.item, path: ''}
+      return { ...this.item, path: '' }
     }
   }
 
   private resolvePath(routePath: string) {
-    console.log(this.basePath, routePath)
-    return (this.basePath === '/' ? '' : this.basePath) + (routePath ? '/' : '') + routePath
+    return (
+      (this.basePath === '/' ? '' : this.basePath) +
+      (routePath ? '/' : '') +
+      routePath
+    )
   }
 }
 </script>

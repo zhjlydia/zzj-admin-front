@@ -96,7 +96,6 @@ import ModelDrawer from '../drawer.vue'
   methods: mapActions({
     reset: Loading.wrap(
       Catch.wrap(function (this: any, dispatch, payload) {
-        console.log('reset')
         return dispatch(this.namespace + '/reset', payload)
       })
     ),

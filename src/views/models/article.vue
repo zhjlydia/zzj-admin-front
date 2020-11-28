@@ -44,13 +44,13 @@
 <script lang="ts">
 import { Component } from 'vue-property-decorator'
 import { PropertyTable, Property } from '@/components/property-table'
-import Item from '@/model/article'
+import { Article } from '@/model/article'
 import Basic from './basic'
 
 @Component({
   components: { PropertyTable, Property }
 })
-export default class extends Basic<Item.Item> {
+export default class extends Basic<Article> {
   protected readonly modelName = '文章'
 }
 </script>
