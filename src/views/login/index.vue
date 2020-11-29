@@ -100,7 +100,7 @@ export default class Login extends Vue {
   position: fixed;
   height: 100%;
   width: 100%;
-  background: #4e657a;
+  background: #1a203a;
 
   .container {
     width: 800px;
@@ -151,7 +151,7 @@ export default class Login extends Vue {
   }
 
   .login-btn {
-    background: #4e657a;
+    background: #1a203a;
     color: #fff;
     width: 100%;
     height: 40px;
