@@ -5,6 +5,7 @@
 <script lang="ts">
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
 import { ChartDataForPie, SeriesDataForPie } from '@/model/chart'
+import { CHART_COLOR } from '@/common/constant'
 import BaseChart from './base'
 
 @Component({ mixins: [BaseChart] })
@@ -12,34 +13,31 @@ export default class PieChart extends Vue {
   @Prop() private chartData!: ChartDataForPie
 
   private options: any = {
+    color: CHART_COLOR,
     tooltip: {
       trigger: 'item',
       formatter: '{a} <br/>{b}: {c} ({d}%)'
     },
     legend: {
-      orient: 'vertical',
-      left: 10,
-      data: []
+      show: false
     },
     series: [
       {
         name: '访问来源',
         type: 'pie',
-        radius: ['50%', '70%'],
+        radius: ['65%', '80%'],
         avoidLabelOverlap: false,
         label: {
-          show: false,
-          position: 'center'
+          position: 'outer',
+          alignTo: 'labelLine',
+          bleedMargin: 5
         },
         emphasis: {
           label: {
             show: true,
-            fontSize: '30',
+            fontSize: '16',
             fontWeight: 'bold'
           }
-        },
-        labelLine: {
-          show: false
         },
         data: []
       }

@@ -25,7 +25,7 @@
         <pie-chart :chartData="chartData"></pie-chart>
       </div>
       <div class="chart-wrap">
-        <pie-chart :chartData="chartData"></pie-chart>
+        <bar-chart :chartData="barData" :xAxis="dataAxis"></bar-chart>
       </div>
     </div>
   </div>
@@ -33,8 +33,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import pieChart from '@/components/reportChart/pie.vue'
+import barChart from '@/components/reportChart/bar.vue'
 
-@Component({ components: { pieChart } })
+@Component({ components: { pieChart, barChart } })
 export default class Dashboard extends Vue {
   chartData = {
     name: '测试',
@@ -46,6 +47,50 @@ export default class Dashboard extends Vue {
       { value: 1548, name: '搜索引擎' }
     ]
   }
+  dataAxis = [
+    '点',
+    '击',
+    '柱',
+    '子',
+    '或',
+    '者',
+    '两',
+    '指',
+    '在',
+    '触',
+    '屏',
+    '上',
+    '滑',
+    '动',
+    '能',
+    '够',
+    '自',
+    '动',
+    '缩',
+    '放'
+  ]
+  barData = [
+    220,
+    182,
+    191,
+    234,
+    290,
+    330,
+    310,
+    123,
+    442,
+    321,
+    90,
+    149,
+    210,
+    122,
+    133,
+    334,
+    198,
+    123,
+    125,
+    220
+  ]
 }
 </script>
 <style lang="less" scoped>
@@ -57,7 +102,7 @@ export default class Dashboard extends Vue {
     .brief-data-item {
       width: 23.5%;
       background: #2b3153;
-      padding: 30px;
+      padding: 20px;
       color: #fff;
       border-radius: 10px;
     }
@@ -69,9 +114,10 @@ export default class Dashboard extends Vue {
     .chart-wrap {
       width: 49%;
       background: #2b3153;
-      padding: 30px;
+      padding: 20px;
       color: #fff;
       border-radius: 10px;
+      height: 200px;
     }
   }
 }
