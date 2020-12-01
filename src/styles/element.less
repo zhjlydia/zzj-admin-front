@@ -1,4 +1,4 @@
-/** @format */
+@import './theme.less';
 .el-submenu,
 .el-menu-item {
   width: 100px;
@@ -13,21 +13,12 @@
   right: 5px;
 }
 
-.el-submenu.is-active .nav-icon,
-.el-submenu.is-active .el-submenu__icon-arrow {
-  color: #feba34;
-}
-
 .el-menu--horizontal > .el-menu-item,
 .el-menu--horizontal > .el-submenu .el-submenu__title {
   font-size: 12px;
   padding-top: 18px;
   height: 80px;
   line-height: 1;
-}
-
-.el-menu--horizontal > .el-submenu .el-submenu__icon-arrow {
-  margin-top: 0;
 }
 
 .el-menu--collapse .el-menu .el-submenu,
@@ -39,23 +30,45 @@
   border-bottom: none;
 }
 
+.el-menu {
+  background-color: @nav-color;
+}
+.el-submenu,
+.el-menu-item {
+  margin: 0 auto;
+}
+.el-menu--horizontal > .el-menu-item:not(.is-disabled):focus,
+.el-menu--horizontal > .el-menu-item:not(.is-disabled):hover,
+.el-menu--horizontal > .el-submenu .el-submenu__title:hover {
+  background-color: @nav-hover-color;
+}
+.el-menu--horizontal > .el-menu-item.is-active {
+  border-bottom: 2px solid @light-color;
+  color: #fff;
+}
+
+.el-menu--horizontal > .el-menu-item.is-active:hover {
+  color: #fff;
+}
+.el-menu--horizontal .el-menu .el-menu-item,
+.el-menu--horizontal .el-menu .el-submenu__title {
+  background-color: @nav-color;
+  &:hover {
+    background-color: @nav-hover-color;
+  }
+}
+.el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
+  border-bottom: 2px solid @light-color;
+  color: #fff;
+}
+
 .el-form-item__label {
   color: #fff;
   padding-right: 20px;
 }
 
-.el-pagination.is-background .el-pager li:not(.disabled).active {
-  background-color: #feba34;
-  color: #fff;
-}
-
 .el-table {
   color: #fff;
-}
-
-.el-table,
-.el-table__expanded-cell {
-  background-color: #3f4665;
 }
 
 .el-table tr {
@@ -63,25 +76,23 @@
 }
 
 .el-table th {
-  background-color: #2b3153;
+  background-color: @table-wrap-color;
 }
 
 .el-table td {
-  background-color: #3f4665;
+  background-color: @table-td-color;
 }
 
 .el-table td,
 .el-table th.is-leaf {
-  border-bottom: 1px solid #415a70;
+  border-bottom: 1px solid @table-border-color;
 }
 
 .el-table--border::after,
 .el-table--group::after,
 .el-table::before {
   content: '';
-  position: absolute;
-  background-color: #415a70;
-  z-index: 1;
+  background-color: transparent;
 }
 
 .el-table thead {
@@ -94,7 +105,7 @@
 }
 
 .el-table--enable-row-hover .el-table__body tr:hover > td {
-  background-color: #323856;
+  background-color: @table-td-hover-color;
 }
 
 .el-table .cell {
@@ -106,7 +117,7 @@
 }
 
 .el-drawer {
-  background: #474c69;
+  background: @drawer-color;
 }
 .el-drawer__header {
   padding: 20px 180px 0;

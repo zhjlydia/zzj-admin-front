@@ -91,16 +91,6 @@ export default class NavBar extends Vue {
   .menu {
     flex-grow: 1;
   }
-  .el-menu{
-    background-color: @nav-color;
-    &:hover{
-      background-color: @nav-color;
-    }
-  }
-  .el-menu--horizontal>.el-menu-item.is-active{
-    border-bottom: 2px solid @light-color;
-    color: #fff;
-  }
   .bar {
     display: flex;
     justify-content: space-between;

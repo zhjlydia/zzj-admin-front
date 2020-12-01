@@ -187,9 +187,10 @@ export default class extends Vue {
 }
 </script>
 <style lang="less" scoped>
+@import '~@/styles/theme.less';
 .basic-table::v-deep {
   padding: 0 20px 20px 20px;
-  background: #2b3153;
+  background: @table-wrap-color;
   a {
     color: #409eff;
     font-weight: bold;

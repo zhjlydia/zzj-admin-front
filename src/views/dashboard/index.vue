@@ -94,6 +94,7 @@ export default class Dashboard extends Vue {
 }
 </script>
 <style lang="less" scoped>
+@import '~@/styles/theme.less';
 .dashboard {
   .brief-data {
     display: flex;
@@ -101,7 +102,7 @@ export default class Dashboard extends Vue {
     margin-top: 30px;
     .brief-data-item {
       width: 23.5%;
-      background: #2b3153;
+      background: @chart-color;
       padding: 20px;
       color: #fff;
       border-radius: 10px;
@@ -113,7 +114,7 @@ export default class Dashboard extends Vue {
     margin-top: 20px;
     .chart-wrap {
       width: 49%;
-      background: #2b3153;
+      background: @chart-color;
       padding: 20px;
       color: #fff;
       border-radius: 10px;

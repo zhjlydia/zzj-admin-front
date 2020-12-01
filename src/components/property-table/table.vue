@@ -238,7 +238,7 @@ export default class extends Vue {
       background: #fff;
       margin-bottom: 5px;
       text-align: center;
-      color: #2b3153;
+      color: #000;
     }
   }
 
