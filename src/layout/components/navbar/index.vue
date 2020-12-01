@@ -10,9 +10,7 @@
       <div class="menu">
         <el-menu
           :default-active="activeMenu"
-          background-color="#2b3153"
           text-color="#fff"
-          active-text-color="#feba34"
           :collapse-transition="false"
           mode="horizontal"
           unique-opened
@@ -74,10 +72,10 @@ export default class NavBar extends Vue {
 </script>
 <style lang="less" scoped>
 /** @format */
-
+@import '~@/styles/theme.less';
 .navBar {
   height: 80px;
-  background: #2b3153;
+  background: @nav-color;
   position: fixed;
   left: 0;
   top: 0;
@@ -92,6 +90,16 @@ export default class NavBar extends Vue {
   }
   .menu {
     flex-grow: 1;
+  }
+  .el-menu{
+    background-color: @nav-color;
+    &:hover{
+      background-color: @nav-color;
+    }
+  }
+  .el-menu--horizontal>.el-menu-item.is-active{
+    border-bottom: 2px solid @light-color;
+    color: #fff;
   }
   .bar {
     display: flex;

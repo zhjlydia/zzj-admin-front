@@ -16,9 +16,9 @@ export default class App extends Vue {}
 </script>
 <style lang="less">
 /** @format */
-
+@import '~@/styles/theme.less';
 body {
-  background: #1a203a;
+  background: @background-color;
   margin: 0;
   padding: 0;
 }
