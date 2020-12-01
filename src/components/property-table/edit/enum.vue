@@ -4,6 +4,7 @@
     @input="input"
     filterable
     allow-create
+    size="small"
     :placeholder="placeholder"
   >
     <el-option

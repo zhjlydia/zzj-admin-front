@@ -1,62 +1,66 @@
 import http from '@/apis'
 /** @format */
-import Category from './category'
+import { Category } from './category'
 import { PagenationData, SelectOptions } from './common'
 import crud from './crud'
-import Tag from './tag'
+import { Tag } from './tag'
 import User from './user'
 
-export namespace Article{
-  export interface Item {
-    id: number
-    title: string
-    description: string
-    content: string
-    createdAt: Date
-    updatedAt: Date
-    image?:string
-    author: User
-    category: Category.Item
-    categoryId?: number
-    tags: Tag.Item[]
-    tagIds?: number[]
-    extra?:Record<string,SelectOptions[]>
-  }  
-  export const Actions={
-    ...crud<Article.Item>('/article'),
-    async getOptions():Promise<Record<string,SelectOptions[]>>{
-      const categories:PagenationData<Category.Item>=(await http.get('/category/all',{ params: {index:1,size:1000,module:'article'} })) as any
-      const categoryOptions=categories.list.map((item:Category.Item)=>{
-        return {
-          label:item.title,
-          value:item.id
-        }
-      })
-      const tags:PagenationData<Tag.Item>=(await http.get('/tag/all',{ params: {index:1,size:1000} })) as any
-      const tagOptions=tags.list.map((item:Tag.Item)=>{
-        return {
-          label:item.content,
-          value:item.id
-        }
-      })
+export interface Article {
+  id: number
+  title: string
+  description: string
+  content: string
+  createdAt: Date
+  updatedAt: Date
+  image?: string
+  author: User
+  category: Category
+  categoryId?: number
+  tags: Tag[]
+  tagIds?: number[]
+  extra?: Record<string, SelectOptions[]>
+}
+export const ArticleActions = {
+  ...crud<Article>('/article'),
+  async getOptions(): Promise<Record<string, SelectOptions[]>> {
+    const categories: PagenationData<Category> = (await http.get(
+      '/category/all',
+      { params: { index: 1, size: 1000, module: 'article' } }
+    )) as any
+    const categoryOptions = categories.list.map((item: Category) => {
       return {
-        category:categoryOptions,
-        tag:tagOptions
+        label: item.title,
+        value: item.id
       }
-    },
-    async getWithOptions(id:number|string):Promise<Article.Item>{
-      const res: Article.Item = (await http.get(`/article/${id}`)) as any
-      if(!res) {
-        return res
+    })
+    const tags: PagenationData<Tag> = (await http.get('/tag/all', {
+      params: { index: 1, size: 1000 }
+    })) as any
+    const tagOptions = tags.list.map((item: Tag) => {
+      return {
+        label: item.content,
+        value: item.id
       }
-      res.categoryId=res.category?res.category.id:null;
-      res.tagIds=res.tags?res.tags.map((item)=>{return item.id}):[];
-      const options = await this.getOptions()
-      res.extra = options
+    })
+    return {
+      category: categoryOptions,
+      tag: tagOptions
+    }
+  },
+  async getWithOptions(id: number | string): Promise<Article> {
+    const res: Article = (await http.get(`/article/${id}`)) as any
+    if (!res) {
       return res
     }
+    res.categoryId = res.category ? res.category.id : null
+    res.tagIds = res.tags
+      ? res.tags.map(item => {
+          return item.id
+        })
+      : []
+    const options = await this.getOptions()
+    res.extra = options
+    return res
   }
 }
-
-
-export default Article

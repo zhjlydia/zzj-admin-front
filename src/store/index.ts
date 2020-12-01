@@ -26,7 +26,6 @@ const mutations: MutationTree<State> = {
   end(state: State, error?: Error) {
     state.jobs--
     if (error) {
-      console.log(error)
     }
   }
 }
@@ -38,5 +37,5 @@ export default new Store({
   mutations,
   actions,
   getters,
-  modules: {user, ...manage}
+  modules: { user, ...manage }
 })

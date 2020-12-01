@@ -1,26 +1,23 @@
 /** @format */
 
 import router from './router'
-import {Route} from 'vue-router'
+import { Route } from 'vue-router'
 import * as user from '@/store/modules/user'
 import store from '@/store'
-import {getToken} from '@/plugins/cookies'
+import { getToken } from '@/plugins/cookies'
 
 const whiteList = ['/login']
 
-router.beforeEach(async(to : Route, _ : Route, next : any) => {
+router.beforeEach(async (to: Route, _: Route, next: any) => {
   if (getToken()) {
-    if (to.path === '/login' && to.query.force){
-      console.log('lollll')
+    if (to.path === '/login' && to.query.force) {
       next()
-    }
-    else {
+    } else {
       if (!user.state.user) {
         try {
-          let res = await store.dispatch('user/getUser')
+          await store.dispatch('user/getUser')
           next()
         } catch (error) {
-          console.log(error)
           next({ path: '/login', query: { force: true } })
         }
       } else {
@@ -40,4 +37,4 @@ router.beforeEach(async(to : Route, _ : Route, next : any) => {
   }
 })
 
-router.afterEach((to : Route) => {})
+router.afterEach((to: Route) => {})

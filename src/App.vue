@@ -9,7 +9,7 @@
 <script lang="ts">
 /** @format */
 
-import {Component, Vue} from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component({})
 export default class App extends Vue {}
@@ -18,7 +18,7 @@ export default class App extends Vue {}
 /** @format */
 
 body {
-  background: #4e657a;
+  background: #1a203a;
   margin: 0;
   padding: 0;
 }

@@ -1,42 +1,42 @@
-import Article from '@/model/article'
-import Category from '@/model/category'
-import Project from '@/model/project'
-import Tag from '@/model/tag'
+import { ArticleActions } from '@/model/article'
+import { CategoryActions } from '@/model/category'
+import { ProjectActions } from '@/model/project'
+import { TagActions } from '@/model/tag'
 import crud from './crud'
 
 export default {
-  article: crud(Article.Actions,{
-    actions:{
+  article: crud(ArticleActions, {
+    actions: {
       /**
        * 获取对象
        * @param id ID
        */
       async get({ commit }, id: string | number) {
-        const res = await Article.Actions.getWithOptions(id)
+        const res = await ArticleActions.getWithOptions(id)
         commit('setCurrent', res)
       },
-      async draft({commit}){
-        const res=await Article.Actions.getOptions()
-        commit('setCurrent', Object.assign({},{extra:res}))
+      async draft({ commit }) {
+        const res = await ArticleActions.getOptions()
+        commit('setCurrent', Object.assign({}, { extra: res }))
       }
     }
   }),
-  project: crud(Project.Actions,{
-    actions:{
+  project: crud(ProjectActions, {
+    actions: {
       /**
        * 获取对象
        * @param id ID
        */
       async get({ commit }, id: string | number) {
-        const res = await Project.Actions.getWithOptions(id)
+        const res = await ProjectActions.getWithOptions(id)
         commit('setCurrent', res)
       },
-      async draft({commit}){
-        const res=await Project.Actions.getOptions()
-        commit('setCurrent', Object.assign({},{extra:res}))
+      async draft({ commit }) {
+        const res = await ProjectActions.getOptions()
+        commit('setCurrent', Object.assign({}, { extra: res }))
       }
     }
   }),
-  tag: crud(Tag.Actions),
-  category: crud(Category.Actions)
+  tag: crud(TagActions),
+  category: crud(CategoryActions)
 }

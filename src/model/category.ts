@@ -1,14 +1,11 @@
 import crud from './crud'
 
-export namespace Category{
-  export interface Item {
-    id: number
-    title: string
-    module: string
-    description: string
-    createdAt?: string
-    updatedAt?: string
-  }  
-  export const Actions=crud<Category.Item>('/category')
+export interface Category {
+  id: number
+  title: string
+  module: string
+  description: string
+  createdAt?: string
+  updatedAt?: string
 }
-export default Category
+export const CategoryActions = crud<Category>('/category')

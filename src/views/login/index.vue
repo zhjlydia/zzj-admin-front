@@ -15,11 +15,15 @@
         auto-complete="on"
         label-position="left"
       >
-        <h3 class="title">
-          WELCOME BACK
-        </h3>
+        <h3 class="title">WELCOME BACK</h3>
         <el-form-item prop="email">
-          <el-input v-model="loginForm.email" name="email" type="text" auto-complete="on" placeholder="邮箱" />
+          <el-input
+            v-model="loginForm.email"
+            name="email"
+            type="text"
+            auto-complete="on"
+            placeholder="邮箱"
+          />
         </el-form-item>
         <el-form-item prop="password">
           <el-input
@@ -38,11 +42,11 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Watch} from 'vue-property-decorator'
-import {namespace, State, Action} from 'vuex-class'
-import {ActionMethod} from 'vuex'
-import {Route} from 'vue-router'
-import {Form as ElForm} from 'element-ui'
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import { namespace, State, Action } from 'vuex-class'
+import { ActionMethod } from 'vuex'
+import { Route } from 'vue-router'
+import { Form as ElForm } from 'element-ui'
 import loginBg from '@/assets/login-bg.jpg'
 
 const user = namespace('user')
@@ -61,8 +65,8 @@ export default class Login extends Vue {
     password: ''
   }
   private loginRules = {
-    email: [{required: true, trigger: 'blur'}],
-    password: [{required: true, trigger: 'blur'}]
+    email: [{ required: true, trigger: 'blur' }],
+    password: [{ required: true, trigger: 'blur' }]
   }
   private loading = false
 
@@ -72,13 +76,15 @@ export default class Login extends Vue {
       if (valid) {
         this.loading = true
         try {
-          console.log(this.loginForm)
-          await this.login({email: this.loginForm.email, password: this.loginForm.password})
-          let redirect = this.$route.query && (this.$route.query.redirect as string)
-          this.$router.push({path: redirect || '/'})
+          await this.login({
+            email: this.loginForm.email,
+            password: this.loginForm.password
+          })
+          let redirect =
+            this.$route.query && (this.$route.query.redirect as string)
+          this.$router.push({ path: redirect || '/' })
         } catch (err) {
-          console.log(err)
-          //   this.$message.error(err)
+          this.$message.error(err)
         }
         this.loading = false
       } else {
@@ -94,7 +100,7 @@ export default class Login extends Vue {
   position: fixed;
   height: 100%;
   width: 100%;
-  background: #4e657a;
+  background: #1a203a;
 
   .container {
     width: 800px;
@@ -145,7 +151,7 @@ export default class Login extends Vue {
   }
 
   .login-btn {
-    background: #4e657a;
+    background: #1a203a;
     color: #fff;
     width: 100%;
     height: 40px;
