@@ -47,7 +47,6 @@ export default class PieChart extends Vue {
         return item.name
       })
     this.options.series[0].data = seriesdata
-    console.log(this.options)
   }
 }
 </script>

@@ -8,6 +8,7 @@ import 'echarts/lib/component/legend'
 import 'echarts/lib/component/title'
 import 'echarts/lib/component/tooltip'
 import { CHART_COLOR } from '@/common/constant'
+import { debounce } from 'lodash'
 
 @Component
 export default class BaseChart extends Vue {
@@ -49,6 +50,8 @@ export default class BaseChart extends Vue {
     }
   }
 
+  private resizeHandler!: () => void
+
   @Watch('isLoading')
   private handleLoading(val: boolean): void {
     if (val) {
@@ -64,13 +67,19 @@ export default class BaseChart extends Vue {
   }
 
   private mounted(): void {
-    console.log('mounted')
     this.init()
+    this.resizeHandler = debounce(() => {
+      if (this.myChart) {
+        this.myChart.resize()
+      }
+    }, 200)
+    window.addEventListener('resize', this.resizeHandler)
   }
   private beforeDestroy(): void {
     if (!this.myChart) {
       return
     }
+    window.removeEventListener('resize', this.resizeHandler)
     this.destroyedChart()
     this.myChart.dispose()
     this.myChart = null
