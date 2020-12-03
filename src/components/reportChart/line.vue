@@ -14,26 +14,36 @@ import BaseChart from './base'
 import echarts from 'echarts/lib/echarts'
 
 @Component({ mixins: [BaseChart] })
-export default class BarChart extends Vue {
+export default class LineChart extends Vue {
   @Prop() private chartData!: SeriesDataForLineAndBar[]
   @Prop() private xAxis!: string[]
   private options: any = {
+    tooltip: {
+      axisPointer: {
+        z: 0,
+        type: 'line',
+        lineStyle: {
+          color: 'rgba(0,0,0,0.2)'
+        }
+      }
+    },
     xAxis: {
       show: true,
-      type: 'category',
       data: [],
       axisLabel: {
         show: true,
         textStyle: {
           color: '#fff'
-        }
+        },
+        interval: 1
       },
       axisTick: {
         show: false
       },
       axisLine: {
         show: false
-      }
+      },
+      boundaryGap: false
     },
     yAxis: {
       axisLine: {
@@ -61,14 +71,14 @@ export default class BarChart extends Vue {
     let series: any = this.chartData.map((item, i) => {
       return {
         name: item.name,
-        type: 'bar',
-        barWidth: '25%',
+        type: 'line',
+        smooth: true,
         itemStyle: {
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: CHART_COLOR[i] },
-            { offset: 1, color: '#fff' }
-          ]),
-          barBorderRadius: [5, 5, 0, 0]
+          color: CHART_COLOR[i]
+        },
+        areaStyle: {
+          color: CHART_COLOR[i],
+          opacity: 0.2
         },
         data: item.data
       }

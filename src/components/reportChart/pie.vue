@@ -4,26 +4,21 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
-import { ChartDataForPie, SeriesDataForPie } from '@/model/chart'
+import { SeriesDataForPie } from '@/model/chart'
 import { CHART_COLOR } from '@/common/constant'
 import BaseChart from './base'
 
 @Component({ mixins: [BaseChart] })
 export default class PieChart extends Vue {
-  @Prop() private chartData!: ChartDataForPie
+  @Prop() private chartData!: SeriesDataForPie[]
 
   private options: any = {
-    color: CHART_COLOR,
     tooltip: {
       trigger: 'item',
-      formatter: '{a} <br/>{b}: {c} ({d}%)'
-    },
-    legend: {
-      show: false
+      formatter: '{b}<br/> 数量: {c} <br/> 占比: {d}%'
     },
     series: [
       {
-        name: '访问来源',
         type: 'pie',
         radius: ['65%', '80%'],
         avoidLabelOverlap: false,
@@ -45,13 +40,14 @@ export default class PieChart extends Vue {
   }
 
   private formatData() {
-    let seriesdata: SeriesDataForPie[] = this.chartData.seriesData
-    let legendarr = this.chartData.seriesData.map(item => {
-      return item.name
-    })
-
+    let seriesdata: SeriesDataForPie[] = this.chartData
+    let legendarr =
+      this.chartData &&
+      this.chartData.map(item => {
+        return item.name
+      })
     this.options.series[0].data = seriesdata
-    this.options.legend.data = legendarr
+    console.log(this.options)
   }
 }
 </script>

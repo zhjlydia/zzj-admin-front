@@ -16,11 +16,11 @@ import echarts from 'echarts/lib/echarts'
 @Component({ mixins: [BaseChart] })
 export default class BarChart extends Vue {
   @Prop() private chartData!: SeriesDataForLineAndBar[]
-  @Prop() private xAxis!: string[]
+  @Prop() private yAxis!: string[]
   private options: any = {
     xAxis: {
       show: true,
-      type: 'category',
+      type: 'value',
       data: [],
       axisLabel: {
         show: true,
@@ -33,9 +33,13 @@ export default class BarChart extends Vue {
       },
       axisLine: {
         show: false
+      },
+      splitLine: {
+        show: false
       }
     },
     yAxis: {
+      type: 'category',
       axisLine: {
         show: false
       },
@@ -45,6 +49,9 @@ export default class BarChart extends Vue {
       axisLabel: {
         textStyle: {
           color: '#fff'
+        },
+        formatter: function (value) {
+          return `${value.length > 5 ? value.substring(0, 5) + '...' : value}`
         }
       },
       splitLine: {
@@ -63,18 +70,23 @@ export default class BarChart extends Vue {
         name: item.name,
         type: 'bar',
         barWidth: '25%',
-        itemStyle: {
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: CHART_COLOR[i] },
-            { offset: 1, color: '#fff' }
-          ]),
-          barBorderRadius: [5, 5, 0, 0]
-        },
-        data: item.data
+
+        data: item.data.map((subItem, i) => {
+          return {
+            value: subItem,
+            itemStyle: {
+              color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+                { offset: 0, color: CHART_COLOR[i] },
+                { offset: 1, color: '#fff' }
+              ]),
+              barBorderRadius: [0, 5, 5, 0]
+            }
+          }
+        })
       }
     })
     this.options.series = series
-    this.options.xAxis.data = this.xAxis
+    this.options.yAxis.data = this.yAxis
   }
 }
 </script>

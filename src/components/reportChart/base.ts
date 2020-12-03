@@ -6,13 +6,48 @@ import 'echarts/lib/chart/line'
 import 'echarts/lib/chart/pie'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/title'
+import 'echarts/lib/component/tooltip'
+import { CHART_COLOR } from '@/common/constant'
 
 @Component
 export default class BaseChart extends Vue {
   @Prop() private isLoading!: boolean
+  @Prop() private chartData!: any
+
   private myChart: any = {}
 
-  private options: any = {}
+  private options: any = {
+    color: CHART_COLOR,
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        z: 0,
+        type: 'shadow',
+        shadowStyle: {
+          color: 'rgba(0,0,0,0.2)'
+        }
+      },
+      backgroundColor: '#fff',
+      borderColor: 'rgba(0,0,0,0.5)',
+      borderWidth: 2,
+      padding: [5, 10, 5, 10],
+      textStyle: {
+        color: '#333'
+      }
+    },
+    legend: {
+      show: false
+    },
+    grid: {
+      show: true,
+      left: '30',
+      right: '30',
+      bottom: '0',
+      top: '10',
+      containLabel: true,
+      borderColor: '#3b5263'
+    }
+  }
 
   @Watch('isLoading')
   private handleLoading(val: boolean): void {
@@ -21,6 +56,11 @@ export default class BaseChart extends Vue {
     } else {
       this.hideChartLoading()
     }
+  }
+
+  @Watch('chartData')
+  private handleChartData(val: any): void {
+    this.renderChart()
   }
 
   private mounted(): void {

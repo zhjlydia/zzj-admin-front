@@ -4,5 +4,9 @@ export interface SeriesDataForPie {
 }
 export interface ChartDataForPie {
   seriesData: SeriesDataForPie[]
+}
+
+export interface SeriesDataForLineAndBar {
+  data: number[]
   name: string
 }
