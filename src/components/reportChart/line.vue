@@ -34,8 +34,7 @@ export default class LineChart extends Vue {
         show: true,
         textStyle: {
           color: '#fff'
-        },
-        interval: 1
+        }
       },
       axisTick: {
         show: false

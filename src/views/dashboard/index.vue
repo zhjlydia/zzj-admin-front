@@ -24,9 +24,13 @@
     </div>
     <div class="chart-module">
       <div class="chart-wrap single">
-        <div class="chart-title">pv/uv</div>
+        <div class="chart-title">最近一个月pv/uv</div>
         <div class="chart">
-          <line-chart :chartData="lineData" :xAxis="dataAxis"></line-chart>
+          <line-chart
+            :chartData="pvUvData"
+            :xAxis="pvUvAxis"
+            :isLoading="isLoading"
+          ></line-chart>
         </div>
       </div>
     </div>
@@ -40,7 +44,11 @@
       <div class="chart-wrap">
         <div class="chart-title">每月文章发布数量</div>
         <div class="chart">
-          <bar-chart :chartData="barData" :xAxis="dataAxis"></bar-chart>
+          <bar-chart
+            :chartData="articleMonthData"
+            :xAxis="articleCountAxis"
+            :isLoading="isLoading"
+          ></bar-chart>
         </div>
       </div>
     </div>
@@ -49,8 +57,8 @@
         <div class="chart-title">阅读量top5</div>
         <div class="chart">
           <vertical-bar-chart
-            :chartData="verticalBarData"
-            :yAxis="verticalAxis"
+            :chartData="top5ArticleData"
+            :yAxis="articlePvTop5Axis"
           ></vertical-bar-chart>
         </div>
       </div>
@@ -65,8 +73,9 @@ import lineChart from '@/components/reportChart/line.vue'
 import verticalBarChart from '@/components/reportChart/vertical-bar.vue'
 import { namespace, State, Action } from 'vuex-class'
 import { ActionMethod } from 'vuex'
-import { SeriesDataForPie } from '@/model/chart'
+import { SeriesDataForLineAndBar, SeriesDataForPie } from '@/model/chart'
 import { Catch } from '@/plugins/decorators'
+import dayjs from 'dayjs'
 const dashboard = namespace('dashboard')
 
 @Component({ components: { pieChart, barChart, lineChart, verticalBarChart } })
@@ -74,10 +83,61 @@ export default class Dashboard extends Vue {
   @dashboard.State
   articleGroupByCategory: SeriesDataForPie[]
 
+  @dashboard.State
+  dailyPv: SeriesDataForLineAndBar
+
+  @dashboard.State
+  dailyUv: SeriesDataForLineAndBar
+
+  @dashboard.State
+  pvUvAxis: string[]
+
+  @dashboard.State
+  articleCountByMonth: SeriesDataForLineAndBar
+
+  @dashboard.State
+  articleCountAxis: string[]
+
+  @dashboard.State
+  articlePvTop5: SeriesDataForLineAndBar
+
+  @dashboard.State
+  articlePvTop5Axis: string[]
+
   @dashboard.Action
   getArticleGroupByCategory: ActionMethod
 
+  @dashboard.Action
+  getDailyPvUv: ActionMethod
+
+  @dashboard.Action
+  getArticleCountByMonth: ActionMethod
+
+  @dashboard.Action
+  getTop5Article: ActionMethod
+
   isLoading = false
+
+  get pvUvData() {
+    if (this.dailyPv && this.dailyUv) {
+      return [this.dailyPv, this.dailyUv]
+    }
+    return null
+  }
+
+  get articleMonthData() {
+    if (this.articleCountByMonth) {
+      return [this.articleCountByMonth]
+    }
+    return null
+  }
+
+  get top5ArticleData() {
+    if (this.articlePvTop5) {
+      return [this.articlePvTop5]
+    }
+    return null
+  }
 
   created(): void {
     this.init()
@@ -86,63 +146,20 @@ export default class Dashboard extends Vue {
   @Catch
   async init(): Promise<void> {
     this.isLoading = true
-    let res = await Promise.all([this.getArticleGroupByCategory()])
-    console.log(this.articleGroupByCategory)
+    await Promise.all([
+      this.getArticleGroupByCategory(),
+      this.getDailyPvUv({
+        begin: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
+        end: dayjs().format('YYYY-MM-DD')
+      }),
+      this.getArticleCountByMonth({
+        begin: dayjs().subtract(1, 'year').format('YYYY-MM-DD'),
+        end: dayjs().format('YYYY-MM-DD')
+      }),
+      this.getTop5Article()
+    ])
     this.isLoading = false
   }
-  chartData = {
-    name: '测试',
-    seriesData: [
-      { value: 335, name: '直接访问' },
-      { value: 310, name: '邮件营销' },
-      { value: 234, name: '联盟广告' },
-      { value: 135, name: '视频广告' },
-      { value: 1548, name: '搜索引擎' }
-    ]
-  }
-  dataAxis = [
-    '2020-01',
-    '2020-02',
-    '2020-03',
-    '2020-04',
-    '2020-05',
-    '2020-06',
-    '2020-07',
-    '2020-08',
-    '2020-09',
-    '2020-10',
-    '2020-11',
-    '2020-12'
-  ]
-  verticalAxis = [
-    '文章名字可能是这么长的一定要看下',
-    '文章名字可能是这么长',
-    '文章名字可能是这么长',
-    '文章名字可能是这么长',
-    '文章名字可能是这么长'
-  ]
-  barData = [
-    {
-      name: '文章数',
-      data: [220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 111, 88]
-    }
-  ]
-  verticalBarData = [
-    {
-      name: '阅读量',
-      data: [220, 182, 191, 234, 290]
-    }
-  ]
-  lineData = [
-    {
-      name: 'pv',
-      data: [220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 111, 88]
-    },
-    {
-      name: 'uv',
-      data: [22, 18, 19, 23, 29, 33, 31, 12, 44, 32, 11, 8]
-    }
-  ]
 }
 </script>
 <style lang="less" scoped>

@@ -14,8 +14,7 @@ export default class PieChart extends Vue {
 
   private options: any = {
     tooltip: {
-      trigger: 'item',
-      formatter: '{b}<br/> 数量: {c} <br/> 占比: {d}%'
+      show: false
     },
     series: [
       {
@@ -23,9 +22,29 @@ export default class PieChart extends Vue {
         radius: ['65%', '80%'],
         avoidLabelOverlap: false,
         label: {
-          position: 'outer',
-          alignTo: 'labelLine',
-          bleedMargin: 5
+          formatter: '{b|{b}：}{c|{c}}\n{per|{d}%}  ',
+          backgroundColor: '#eee',
+          borderColor: '#aaa',
+          padding: [2, 5, 2, 5],
+          borderWidth: 1,
+          borderRadius: 4,
+          rich: {
+            b: {
+              fontSize: 12,
+              lineHeight: 20
+            },
+            c: {
+              color: '#334455',
+              fontSize: 14
+            },
+            per: {
+              fontSize: 10,
+              color: '#eee',
+              backgroundColor: '#334455',
+              padding: [2, 4],
+              borderRadius: 2
+            }
+          }
         },
         emphasis: {
           label: {

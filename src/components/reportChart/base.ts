@@ -28,9 +28,9 @@ export default class BaseChart extends Vue {
           color: 'rgba(0,0,0,0.2)'
         }
       },
-      backgroundColor: '#fff',
-      borderColor: 'rgba(0,0,0,0.5)',
-      borderWidth: 2,
+      backgroundColor: '#eee',
+      borderColor: '#aaa',
+      borderWidth: 1,
       padding: [5, 10, 5, 10],
       textStyle: {
         color: '#333'
@@ -54,6 +54,7 @@ export default class BaseChart extends Vue {
 
   @Watch('isLoading')
   private handleLoading(val: boolean): void {
+    console.log('loading', val)
     if (val) {
       this.showChartLoading()
     } else {
@@ -86,7 +87,9 @@ export default class BaseChart extends Vue {
   }
   private init(): void {
     this.myChart = echarts.init(this.$el)
-    this.renderChart()
+    if (this.chartData) {
+      this.renderChart()
+    }
   }
   private formatData(): void {}
   private renderChart(): void {
