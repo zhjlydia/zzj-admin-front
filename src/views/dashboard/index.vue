@@ -116,6 +116,9 @@ export default class Dashboard extends Vue {
   @dashboard.Action
   getTop5Article: ActionMethod
 
+  @dashboard.Action
+  getSummaryData: ActionMethod
+
   isLoading = false
 
   get pvUvData() {
@@ -156,7 +159,8 @@ export default class Dashboard extends Vue {
         begin: dayjs().subtract(1, 'year').format('YYYY-MM-DD'),
         end: dayjs().format('YYYY-MM-DD')
       }),
-      this.getTop5Article()
+      this.getTop5Article(),
+      this.getSummaryData()
     ])
     this.isLoading = false
   }

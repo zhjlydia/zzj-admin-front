@@ -14,6 +14,7 @@ export interface State {
   articleCountAxis: string[]
   articlePvTop5: SeriesDataForLineAndBar
   articlePvTop5Axis: string[]
+  summaryData: any
 }
 
 export const state: State = {
@@ -24,7 +25,8 @@ export const state: State = {
   articleCountByMonth: null,
   articleCountAxis: [],
   articlePvTop5: null,
-  articlePvTop5Axis: []
+  articlePvTop5Axis: [],
+  summaryData: null
 }
 
 export const mutations: MutationTree<State> = {
@@ -57,6 +59,9 @@ export const mutations: MutationTree<State> = {
   },
   M_SET_ARTICLEPVTOP5AXIS(state: State, articlePvTop5Axis: string[]) {
     state.articlePvTop5Axis = articlePvTop5Axis
+  },
+  M_SET_SUMMARYDATA(state: State, data: any) {
+    state.summaryData = data
   }
 }
 export const actions: ActionTree<State, Root> = {
@@ -128,6 +133,15 @@ export const actions: ActionTree<State, Root> = {
       })
       commit('M_SET_ARTICLEPVTOP5', { data: data, name: '阅读量' })
       commit('M_SET_ARTICLEPVTOP5AXIS', axis)
+    } catch (e) {
+      console.log(e)
+      throw new Error(e)
+    }
+  },
+  async getSummaryData({ commit }) {
+    try {
+      const res: any = await http.get('dashboard/getSummaryData')
+      console.log(res)
     } catch (e) {
       console.log(e)
       throw new Error(e)
