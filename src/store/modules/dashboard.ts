@@ -5,6 +5,13 @@ import dayjs from 'dayjs'
 import { ActionTree, MutationTree } from 'vuex'
 import { State as Root } from '..'
 
+export interface SummaryData {
+  articleCount: number
+  projectCount: number
+  pv: number
+  uv: number
+}
+
 export interface State {
   articleGroupByCategory: SeriesDataForPie[]
   dailyPv: SeriesDataForLineAndBar
@@ -14,7 +21,7 @@ export interface State {
   articleCountAxis: string[]
   articlePvTop5: SeriesDataForLineAndBar
   articlePvTop5Axis: string[]
-  summaryData: any
+  summaryData: SummaryData
 }
 
 export const state: State = {
@@ -60,7 +67,7 @@ export const mutations: MutationTree<State> = {
   M_SET_ARTICLEPVTOP5AXIS(state: State, articlePvTop5Axis: string[]) {
     state.articlePvTop5Axis = articlePvTop5Axis
   },
-  M_SET_SUMMARYDATA(state: State, data: any) {
+  M_SET_SUMMARYDATA(state: State, data: SummaryData) {
     state.summaryData = data
   }
 }
@@ -79,7 +86,7 @@ export const actions: ActionTree<State, Root> = {
       }
       commit('M_SET_ARTICLEGROUPBYCATEGORY', data)
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e.message)
     }
   },
   async getDailyPvUv({ commit }, { begin, end }) {
@@ -88,20 +95,19 @@ export const actions: ActionTree<State, Root> = {
         params: { begin, end }
       })
       const dateArr = res.pv.map(i => {
-        return dayjs(i.date).format('YYYY-MM-DD')
+        return dayjs(i.name).format('YYYY-MM-DD')
       })
       const pvData = res.pv.map(i => {
-        return Number(i.count)
+        return Number(i.value)
       })
       const uvData = res.uv.map(i => {
-        return Number(i.count)
+        return Number(i.value)
       })
       commit('M_SET_DAILYPV', { data: pvData, name: 'pv' })
       commit('M_SET_DAILYUV', { data: uvData, name: 'uv' })
       commit('M_SET_PVUVAXIS', dateArr)
     } catch (e) {
-      console.log(e)
-      throw new Error(e)
+      throw new Error(e.message)
     }
   },
   async getArticleCountByMonth({ commit }, { begin, end }) {
@@ -110,41 +116,38 @@ export const actions: ActionTree<State, Root> = {
         params: { begin, end }
       })
       const dateArr = res.map(i => {
-        return dayjs(i.date).format('YYYY-MM-DD')
+        return dayjs(i.name).format('YYYY-MM-DD')
       })
       const data = res.map(i => {
-        return Number(i.count)
+        return Number(i.value)
       })
       commit('M_SET_ARTICLECOUNTBYMONTH', { data: data, name: '文章数' })
       commit('M_SET_ATTILCECOUNTAXIS', dateArr)
     } catch (e) {
-      console.log(e)
-      throw new Error(e)
+      throw new Error(e.message)
     }
   },
   async getTop5Article({ commit }) {
     try {
       const res: any = await http.get('dashboard/getTop5Article')
       const axis = res.map(i => {
-        return i.title
+        return i.name
       })
       const data = res.map(i => {
-        return Number(i.count)
+        return Number(i.value)
       })
       commit('M_SET_ARTICLEPVTOP5', { data: data, name: '阅读量' })
       commit('M_SET_ARTICLEPVTOP5AXIS', axis)
     } catch (e) {
-      console.log(e)
-      throw new Error(e)
+      throw new Error(e.message)
     }
   },
   async getSummaryData({ commit }) {
     try {
       const res: any = await http.get('dashboard/getSummaryData')
-      console.log(res)
+      commit('M_SET_SUMMARYDATA', res)
     } catch (e) {
-      console.log(e)
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 }

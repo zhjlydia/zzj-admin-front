@@ -9,12 +9,13 @@ export const COLOR_ARRAY = [
 ]
 
 export const CHART_COLOR = [
-  '#9966ff',
-  '#ff6384',
-  '#87d3f0',
-  
-  '#4bc0c0',
+  '#52cce1',
+  '#f36e6e',
   '#feda7c',
+  '#9966ff',
+
+  '#87d3f0',
+
   '#ba41fc',
   '#04b0ff',
   '#d4c5f9',

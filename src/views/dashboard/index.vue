@@ -2,24 +2,25 @@
 
 <template>
   <div class="dashboard">
-    <div class="brief-data">
-      <div class="brief-data-item">
-        <p class="label">文章</p>
-        <p class="value">88</p>
-        <div>去创作</div>
-      </div>
-      <div class="brief-data-item">
-        <p class="label">项目</p>
-        <p class="value">88</p>
-        <div>去创作</div>
-      </div>
-      <div class="brief-data-item">
-        <p class="label">总访问量</p>
-        <p class="value">88</p>
-      </div>
-      <div class="brief-data-item">
-        <p class="label">总访问人数</p>
-        <p class="value">88</p>
+    <div class="summary-data">
+      <div
+        class="summary-data-item"
+        v-for="(item, index) in summaryDataList"
+        :key="index"
+      >
+        <div class="summary-icon">
+          <div
+            class="summary-icon-bg"
+            :style="{ background: COLOR_ARRAY[index] }"
+          ></div>
+          <i :class="item.icon" :style="{ color: COLOR_ARRAY[index] }"></i>
+        </div>
+        <div>
+          <p class="label">{{ item.title }}</p>
+          <p class="value">
+            {{ item.data }}
+          </p>
+        </div>
       </div>
     </div>
     <div class="chart-module">
@@ -76,6 +77,8 @@ import { ActionMethod } from 'vuex'
 import { SeriesDataForLineAndBar, SeriesDataForPie } from '@/model/chart'
 import { Catch } from '@/plugins/decorators'
 import dayjs from 'dayjs'
+import { SummaryData } from '@/store/modules/dashboard'
+import { COLOR_ARRAY } from '@/common/constant'
 const dashboard = namespace('dashboard')
 
 @Component({ components: { pieChart, barChart, lineChart, verticalBarChart } })
@@ -104,6 +107,9 @@ export default class Dashboard extends Vue {
   @dashboard.State
   articlePvTop5Axis: string[]
 
+  @dashboard.State
+  summaryData: SummaryData
+
   @dashboard.Action
   getArticleGroupByCategory: ActionMethod
 
@@ -120,6 +126,33 @@ export default class Dashboard extends Vue {
   getSummaryData: ActionMethod
 
   isLoading = false
+
+  COLOR_ARRAY = COLOR_ARRAY
+
+  get summaryDataList() {
+    return [
+      {
+        title: '文章',
+        icon: 'el-icon-document',
+        data: this.summaryData ? this.summaryData.articleCount : '-'
+      },
+      {
+        title: '项目',
+        icon: 'el-icon-s-flag',
+        data: this.summaryData ? this.summaryData.projectCount : '-'
+      },
+      {
+        title: '总pv',
+        icon: 'el-icon-view',
+        data: this.summaryData ? this.summaryData.pv : '-'
+      },
+      {
+        title: '总uv',
+        icon: 'el-icon-user',
+        data: this.summaryData ? this.summaryData.uv : '-'
+      }
+    ]
+  }
 
   get pvUvData() {
     if (this.dailyPv && this.dailyUv) {
@@ -170,15 +203,33 @@ export default class Dashboard extends Vue {
 @import '~@/styles/theme.less';
 .dashboard {
   color: #fff;
-  .brief-data {
+  .summary-data {
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
-    .brief-data-item {
+    .summary-data-item {
       width: 23.5%;
       background: @chart-color;
       padding: 20px;
       border-radius: 10px;
+      display: flex;
+    }
+    .summary-icon {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      font-size: 20px;
+      position: relative;
+      &-bg {
+        position: absolute;
+        border-radius: 50%;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        opacity: 0.5;
+      }
     }
   }
   .chart-module {
