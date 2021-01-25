@@ -8,12 +8,12 @@
         v-for="(item, index) in summaryDataList"
         :key="index"
       >
-        <div class="summary-icon">
+        <div class="summary-icon" :style="{ background: COLOR_ARRAY[index] }">
           <div
             class="summary-icon-bg"
             :style="{ background: COLOR_ARRAY[index] }"
           ></div>
-          <i :class="item.icon" :style="{ color: COLOR_ARRAY[index] }"></i>
+          <i :class="item.icon"></i>
         </div>
         <div>
           <p class="label">{{ item.title }}</p>
@@ -132,22 +132,22 @@ export default class Dashboard extends Vue {
   get summaryDataList() {
     return [
       {
-        title: '文章',
+        title: '文章数量',
         icon: 'el-icon-document',
         data: this.summaryData ? this.summaryData.articleCount : '-'
       },
       {
-        title: '项目',
+        title: '项目数量',
         icon: 'el-icon-s-flag',
         data: this.summaryData ? this.summaryData.projectCount : '-'
       },
       {
-        title: '总pv',
+        title: '浏览次数',
         icon: 'el-icon-view',
         data: this.summaryData ? this.summaryData.pv : '-'
       },
       {
-        title: '总uv',
+        title: '浏览人数',
         icon: 'el-icon-user',
         data: this.summaryData ? this.summaryData.uv : '-'
       }
@@ -210,26 +210,37 @@ export default class Dashboard extends Vue {
     .summary-data-item {
       width: 23.5%;
       background: @chart-color;
-      padding: 20px;
+      padding: 30px 60px;
       border-radius: 10px;
       display: flex;
+      justify-content: space-between;
+      text-align: center;
     }
     .summary-icon {
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
+      width: 45px;
+      height: 45px;
+      line-height: 45px;
       text-align: center;
       font-size: 20px;
       position: relative;
+      color: #fff;
+      border-radius: 50%;
       &-bg {
         position: absolute;
         border-radius: 50%;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        opacity: 0.5;
+        left: -5px;
+        right: -5px;
+        top: -5px;
+        bottom: -5px;
+        opacity: 0.3;
       }
+    }
+    .label {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+    .value {
+      font-size: 16px;
     }
   }
   .chart-module {

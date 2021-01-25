@@ -1,21 +1,21 @@
 /** @format */
 
 export const COLOR_ARRAY = [
-  '#FFE082',
-  '#f38787',
-  '#f8bbd0',
-  '#d4c5f9',
+  '#52cce1',
+  '#eb7c54',
+  '#9470dc',
+  '#feba34',
+
   '#87d3f0'
 ]
 
 export const CHART_COLOR = [
   '#52cce1',
-  '#f36e6e',
-  '#feda7c',
-  '#9966ff',
+  '#eb7c54',
+  '#9470dc',
+  '#feba34',
 
   '#87d3f0',
-
   '#ba41fc',
   '#04b0ff',
   '#d4c5f9',
