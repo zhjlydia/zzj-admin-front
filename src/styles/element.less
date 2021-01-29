@@ -42,14 +42,7 @@
 .el-menu--horizontal > .el-submenu .el-submenu__title:hover {
   background-color: @nav-hover-color;
 }
-.el-menu--horizontal > .el-menu-item.is-active {
-  border-bottom: 2px solid @light-color;
-  color: #fff;
-}
 
-.el-menu--horizontal > .el-menu-item.is-active:hover {
-  color: #fff;
-}
 .el-menu--horizontal .el-menu .el-menu-item,
 .el-menu--horizontal .el-menu .el-submenu__title {
   background-color: @nav-color;
@@ -57,9 +50,8 @@
     background-color: @nav-hover-color;
   }
 }
-.el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
-  border-bottom: 2px solid @light-color;
-  color: #fff;
+.el-menu--horizontal > .el-submenu.is-active .el-submenu__title .nav-icon {
+  color: @light-color;
 }
 
 .el-form-item__label {
@@ -123,6 +115,9 @@
   padding: 20px 180px 0;
   color: #fff;
 }
-.el-pagination.is-background .el-pager li:not(.disabled).active {
-  background-color: #feba34;
+
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .btn-next,
+.el-pagination.is-background .el-pager li {
+  border-radius: 50%;
 }

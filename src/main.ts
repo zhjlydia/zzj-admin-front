@@ -6,17 +6,17 @@ import router from '@/router'
 import store from '@/store'
 import './permission'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import '@/styles/element-variables.scss'
 import '@/styles/index.less'
 import * as directives from '@/directives'
-import {DirectiveOptions} from 'vue'
+import { DirectiveOptions } from 'vue'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 
 // Register global directives
 Object.keys(directives).forEach(key => {
-  Vue.directive(key, (directives as {[key: string]: DirectiveOptions})[key])
+  Vue.directive(key, (directives as { [key: string]: DirectiveOptions })[key])
 })
 
 new Vue({

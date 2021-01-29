@@ -11,6 +11,7 @@
         <el-menu
           :default-active="activeMenu"
           text-color="#fff"
+          active-text-color="#feba34"
           :collapse-transition="false"
           mode="horizontal"
           unique-opened

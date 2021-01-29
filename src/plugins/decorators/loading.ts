@@ -1,7 +1,7 @@
 /** @format */
 
 import Vue from 'vue'
-import {Loading as ElLoading} from 'element-ui'
+import loading from '@/components/pageLoading'
 
 /**
  * 显示自定义加载提示Toast直到目标方法执行完成(成功或失败)
@@ -13,7 +13,7 @@ export function Loading(text: string): MethodDecorator
  * 显示默认加载提示Toast直到目标方法执行完成(成功或失败)
  */
 export function Loading(
-  target: Object,
+  target: Record<string, any>,
   propertyKey: string | symbol,
   descriptor: PropertyDescriptor
 ): PropertyDescriptor | void
@@ -21,7 +21,11 @@ export function Loading(...args: any[]): any {
   if (args.length === 3) {
     args[2].value = Loading.wrap(args[2].value)
   } else {
-    return (target: Object, propertyKey: string | symbol, descriptor: PropertyDescriptor) => {
+    return (
+      target: Record<string, any>,
+      propertyKey: string | symbol,
+      descriptor: PropertyDescriptor
+    ) => {
       descriptor.value = Loading.wrap(args[0], descriptor.value)
     }
   }
@@ -50,11 +54,11 @@ export namespace Loading {
       func = arg1
     }
     return async function (this: Vue, ...args: any[]) {
-      let instance = ElLoading.service({fullscreen: true, background: 'rgba(0, 0, 0, 0.6)', text: text || '处理中'})
+      loading.start()
       try {
         return await func.apply(this, args)
       } finally {
-        instance.close()
+        loading.end()
       }
     }
   }
