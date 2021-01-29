@@ -6,7 +6,8 @@ interface State {
   isEdit?: boolean
 }
 
-const calcDepth = (p: Property) => 1 + (!p.props || !p.props.length ? 0 : Math.max(...p.props.map(calcDepth)))
+const calcDepth = (p: Property) =>
+  1 + (!p.props || !p.props.length ? 0 : Math.max(...p.props.map(calcDepth)))
 
 function create() {
   return new Store<State>({
@@ -31,7 +32,10 @@ function create() {
       }
     },
     getters: {
-      depth: state => (state.props && state.props.length ? Math.max(...state.props.map(calcDepth)) : 0)
+      depth: state =>
+        state.props && state.props.length
+          ? Math.max(...state.props.map(calcDepth))
+          : 0
     }
   })
 }
@@ -66,7 +70,7 @@ namespace create {
       const key = name || prop
       Object.defineProperty(target, prop, {
         // tslint:disable-next-line: object-literal-shorthand
-        value: function(...args: any[]) {
+        value: function (...args: any[]) {
           this.store.commit(key, ...args)
         },
         writable: false,

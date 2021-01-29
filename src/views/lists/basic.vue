@@ -59,7 +59,7 @@
           @size-change="resize"
           hide-on-single-page
           background
-          layout="total, sizes, prev, pager, next, jumper"
+          layout="prev, pager, next"
           :total="total"
           :page-size="size"
           :page-sizes="[10, 20, 30, 50]"
@@ -200,5 +200,8 @@ export default class extends Vue {
       text-decoration: underline;
     }
   }
+}
+.pagination {
+  text-align: center;
 }
 </style>

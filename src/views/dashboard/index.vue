@@ -210,7 +210,7 @@ export default class Dashboard extends Vue {
     .summary-data-item {
       width: 23.5%;
       background: @chart-color;
-      padding: 30px 60px;
+      padding: 30px;
       border-radius: 10px;
       display: flex;
       justify-content: space-between;
