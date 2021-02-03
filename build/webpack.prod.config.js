@@ -1,4 +1,3 @@
-
 const merge = require('webpack-merge')
 const path = require('path')
 const webpack = require('webpack')
@@ -23,7 +22,21 @@ module.exports = merge(baseConfig, {
     rules: [
       {
         test: /\.less$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader', 'postcss-loader']
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'less-loader',
+          'postcss-loader'
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+          'postcss-loader'
+        ]
       },
       {
         test: /\.css$/,

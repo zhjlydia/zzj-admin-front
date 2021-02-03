@@ -190,7 +190,11 @@ export default class extends Vue {
    * 文件上传成功后的回调函数
    */
   private uploadSuccess(res: any, file: File) {
-    this.$alert(res, '', {
+    if (res.code) {
+      this.$notify.error(res.message)
+      throw new Error(res.message)
+    }
+    this.$alert(res.data, '', {
       confirmButtonText: '确定',
       customClass: 'upload-success-modal'
     })
@@ -240,6 +244,9 @@ export default class extends Vue {
       text-align: center;
       color: #000;
     }
+  }
+  .upload-success-modal {
+    word-break: break-all;
   }
 
   .upload-success-modal .el-message-box__message p {

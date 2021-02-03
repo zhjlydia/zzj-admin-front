@@ -24,19 +24,22 @@ export const mutations: MutationTree<State> = {
   }
 }
 export const actions: ActionTree<State, Root> = {
-  async login({commit}, {email, password}) {
-    const res: string = await http.post('user/login', {email: email.trim(), password: password.trim()})
+  async login({ commit }, { email, password }) {
+    const res: string = await http.post('user/login', {
+      email: email.trim(),
+      password: password.trim()
+    })
     const token = res
     setToken(token)
     commit('M_SET_TOKEN', token)
   },
-  async logout({commit}) {
+  async logout({ commit }) {
     const token = ''
     setToken(token)
     commit('M_SET_TOKEN', token)
     commit('M_SET_USER', null)
   },
-  async getUser({commit}) {
+  async getUser({ commit }) {
     const res: User = await http.get('user')
     commit('M_SET_USER', res)
   }

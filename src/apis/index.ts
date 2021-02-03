@@ -1,16 +1,11 @@
 /** @format */
 
 import axios from 'axios'
-import { getToken } from '@/plugins/cookies'
 
 const http = axios.create({ baseURL: 'api/' })
 
 http.interceptors.request.use(
   config => {
-    const token = getToken()
-    if (token) {
-      config.headers.authorization = `Bearer ${token}`
-    }
     return config
   },
   error => {
