@@ -11,7 +11,8 @@ export interface Project {
   description: string
   image: string
   content: string
-  state: string
+  stateText: string
+  state: number
   github: string
   role: string
   url: string

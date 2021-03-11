@@ -116,7 +116,7 @@ export const actions: ActionTree<State, Root> = {
         params: { begin, end }
       })
       const dateArr = res.map(i => {
-        return dayjs(i.name).format('YYYY-MM-DD')
+        return dayjs(i.name).format('YYYY-MM')
       })
       const data = res.map(i => {
         return Number(i.value)

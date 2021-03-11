@@ -29,10 +29,6 @@ export interface State<T> {
 
 interface Options<T> {
   /**
-   * 列表属性
-   */
-  projection?: string[] | { exclude: string[] } | { include: string[] }
-  /**
    * 额外actions
    */
   actions?: ActionTree<State<T>, Root>
@@ -45,11 +41,11 @@ interface Options<T> {
    */
   getters?: GetterTree<State<T>, Root>
 }
-export default function create<T extends { id: string | number , extra? : any}>(
+export default function create<T extends { id: string | number; extra?: any }>(
   model: Partial<Model<T>>,
   options?: Options<T>
 ): Module<State<T>, Root> {
-  const { projection = null, actions = {}, mutations = {}, getters = {} } = options || ({} as any)
+  const { actions = {}, mutations = {}, getters = {} } = options || ({} as any)
   return {
     namespaced: true,
     state: () => ({
@@ -66,7 +62,8 @@ export default function create<T extends { id: string | number , extra? : any}>(
       /**
        * 是否已加载完全
        */
-      complete: state => state.total != null && state.items && state.items.length >= state.total,
+      complete: state =>
+        state.total != null && state.items && state.items.length >= state.total,
       /**
        * 当前页码(基于1)
        */
@@ -101,7 +98,7 @@ export default function create<T extends { id: string | number , extra? : any}>(
       /**
        * 获取列表
        */
-      async list({ commit, state, getters }) {
+      async list({ commit, state }) {
         const options: Options.ListOptions = {
           index: state.index,
           size: state.size
@@ -149,7 +146,9 @@ export default function create<T extends { id: string | number , extra? : any}>(
         }
         delete data.id
         delete data.extra
+        console.log(current, data)
         const payload = dirty(current, data)
+        console.log(payload)
         if (payload) {
           await model.update(current.id, payload)
           await dispatch('get', current.id)

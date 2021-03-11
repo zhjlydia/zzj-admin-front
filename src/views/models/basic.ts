@@ -16,20 +16,20 @@ import { ActionMethod, mapActions, mapState } from 'vuex'
       return dispatch(this.namespace + '/resetCurrent', payload)
     },
     add: Loading.wrap(
-      Catch.wrap(function(this: any, dispatch, payload) {
+      Catch.wrap(function (this: any, dispatch, payload) {
         return dispatch(this.namespace + '/add', payload)
       })
     ),
-    draft: Catch.wrap(function(this: any, dispatch, payload) {
-        return dispatch(this.namespace + '/draft', payload)
+    draft: Catch.wrap(function (this: any, dispatch, payload) {
+      return dispatch(this.namespace + '/draft', payload)
     }),
     update: Loading.wrap(
-      Catch.wrap(function(this: any, dispatch, payload) {
+      Catch.wrap(function (this: any, dispatch, payload) {
         return dispatch(this.namespace + '/update', payload)
       })
     ),
     remove: Loading.wrap(
-      Catch.wrap(function(this: any, dispatch, payload) {
+      Catch.wrap(function (this: any, dispatch, payload) {
         return dispatch(this.namespace + '/remove', payload)
       })
     )
@@ -49,7 +49,7 @@ export default class<T> extends Vue {
   id: string | number
 
   @Prop()
-  mode: 'add' | 'edit' |'view'
+  mode: 'add' | 'edit' | 'view'
 
   protected readonly modelName: string = '对象'
   protected readonly item: T
@@ -101,7 +101,8 @@ export default class<T> extends Vue {
     if (!data) {
       return
     }
-    if (this.isNew) {
+    const { id } = this.item || ({} as any)
+    if (!id) {
       return this.add(data)
     }
     return this.update(data)

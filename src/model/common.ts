@@ -70,6 +70,20 @@ export interface PaginationOptions {
 }
 
 export interface SelectOptions {
-  label:string
-  value:number|string
+  label: string
+  value: number | string
+}
+
+/**
+ * 上下架状态
+ */
+export enum StateEnum {
+  /**
+   * 上架
+   */
+  UP = 1,
+  /**
+   * 下架
+   */
+  DOWN = 2
 }

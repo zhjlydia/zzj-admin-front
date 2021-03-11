@@ -15,9 +15,7 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { Spin } from 'ant-design-vue'
 
-Vue.use(Spin)
 @Component
 export default class PageLoading extends Vue {
   left = 0

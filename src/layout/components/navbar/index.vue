@@ -5,7 +5,7 @@
     <div class="bar">
       <img
         class="logo"
-        src="http://cdn.zhouzhoujiang.com/blog/logo-white.png"
+        src="http://cdn.zhouzhoujiang.com/blog/logo-admin.png"
       />
       <div class="menu">
         <el-menu
@@ -87,7 +87,7 @@ export default class NavBar extends Vue {
   .logo {
     margin-right: 40px;
     width: auto;
-    height: 40px;
+    height: 50px;
   }
   .menu {
     flex-grow: 1;

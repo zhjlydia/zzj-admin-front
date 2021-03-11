@@ -1,5 +1,4 @@
-/** @format */
-
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
 const resolve = dir => path.resolve(__dirname, '..', dir)
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -70,7 +69,10 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({filename: 'index.html', template: resolve('public/index.html')}),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: resolve('public/index.html')
+    }),
     new FriendlyErrorsWebpackPlugin()
   ]
 }

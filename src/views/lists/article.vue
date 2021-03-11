@@ -3,7 +3,15 @@
     <el-table-column>
       <div slot-scope="scope">
         <div class="list-item">
-          <p class="title">{{ scope.row.title }}</p>
+          <div class="title-wrap">
+            <p class="title">{{ scope.row.title }}</p>
+            <div
+              class="state"
+              :class="{ 'state-up': scope.row.state === stateEnum.UP }"
+            >
+              {{ scope.row.state === stateEnum.UP ? '已上架' : '已下架' }}
+            </div>
+          </div>
           <tag
             v-for="(tag, i) in scope.row.tags"
             :key="i"
@@ -33,13 +41,14 @@ import BasicList from './basic.vue'
 import tag from '@/components/tag.vue'
 import { COLOR_ARRAY } from '@/common/constant'
 import { formatDate } from '@/utils/filters'
-import dayjs from 'dayjs'
+import { StateEnum } from '@/model/common'
 
 @Component({
   components: { BasicList, tag },
   filters: { formatDate }
 })
 export default class extends Vue {
+  stateEnum = StateEnum
   getColor(i: number) {
     let index = i % COLOR_ARRAY.length
     return COLOR_ARRAY[index]
@@ -52,10 +61,20 @@ export default class extends Vue {
   color: #ececec;
   font-size: 14px;
   cursor: pointer;
+  .title-wrap {
+    display: flex;
+    justify-content: space-between;
+  }
   .title {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 15px;
+  }
+  .state {
+    font-size: 14px;
+  }
+  .state-up {
+    color: #feba34;
   }
   .description {
     margin-bottom: 20px;

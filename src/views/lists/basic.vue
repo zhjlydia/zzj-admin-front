@@ -182,7 +182,9 @@ export default class extends Vue {
     this.mode = 'edit'
   }
   del(id: number) {
-    this.remove(id)
+    this.$confirm('确认删除？').then(() => {
+      this.remove(id)
+    })
   }
 }
 </script>

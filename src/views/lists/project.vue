@@ -8,7 +8,15 @@
     <el-table-column>
       <div slot-scope="scope">
         <div class="list-item">
-          <p class="title">{{ scope.row.name }}</p>
+          <div class="title-wrap">
+            <p class="title">{{ scope.row.name }}</p>
+            <div
+              class="state"
+              :class="{ 'state-up': scope.row.state === stateEnum.UP }"
+            >
+              {{ scope.row.state === stateEnum.UP ? '已上架' : '已下架' }}
+            </div>
+          </div>
           <tag
             v-for="(tag, i) in scope.row.tags"
             :key="i"
@@ -21,8 +29,8 @@
             <div class="item" v-if="scope.row.category">
               类别： {{ scope.row.category.title }}
             </div>
-            <div class="item" v-if="scope.row.state">
-              项目状态： {{ scope.row.state }}
+            <div class="item" v-if="scope.row.stateText">
+              项目进度： {{ scope.row.stateText }}
             </div>
             <div class="item" v-if="scope.row.role">
               我的角色： {{ scope.row.role }}
@@ -50,13 +58,15 @@ import BasicList from './basic.vue'
 import tag from '@/components/tag.vue'
 import { COLOR_ARRAY } from '@/common/constant'
 import { formatDate } from '@/utils/filters'
-import dayjs from 'dayjs'
+import { StateEnum } from '@/model/common'
 
 @Component({
   components: { BasicList, tag },
   filters: { formatDate }
 })
 export default class extends Vue {
+  stateEnum = StateEnum
+
   getColor(i: number) {
     let index = i % COLOR_ARRAY.length
     return COLOR_ARRAY[index]
@@ -68,10 +78,20 @@ export default class extends Vue {
   color: #ececec;
   font-size: 14px;
   cursor: pointer;
+  .title-wrap {
+    display: flex;
+    justify-content: space-between;
+  }
   .title {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 15px;
+  }
+  .state {
+    font-size: 14px;
+  }
+  .state-up {
+    color: #feba34;
   }
   .description {
     margin-bottom: 20px;

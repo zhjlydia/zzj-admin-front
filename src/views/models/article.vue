@@ -23,11 +23,18 @@
           :options="{ folder: 'article' }"
         />
         <property
+          prop="state"
+          name="上下架状态"
+          type="enum"
+          :options="{ options: shelfState }"
+        />
+        <property
           prop="categoryId"
           name="类别"
           type="enum"
           :options="{ options: item.extra.category }"
         />
+
         <property
           prop="tagIds"
           name="标签"
@@ -52,5 +59,10 @@ import Basic from './basic'
 })
 export default class extends Basic<Article> {
   protected readonly modelName = '文章'
+
+  shelfState = [
+    { label: '已上架', value: 1 },
+    { label: '已下架', value: 2 }
+  ]
 }
 </script>

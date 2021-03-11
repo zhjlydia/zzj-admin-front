@@ -41,8 +41,8 @@ export default class BaseChart extends Vue {
     },
     grid: {
       show: true,
-      left: '30',
-      right: '30',
+      left: '32',
+      right: '35',
       bottom: '0',
       top: '10',
       containLabel: true,

@@ -5,6 +5,7 @@
         v-if="item"
         allow-refresh
         allow-edit
+        :model="model"
         :title="title"
         :value="item"
         :edit-mode="mode !== 'view'"
@@ -21,7 +22,13 @@
           type="image"
           :options="{ folder: 'project' }"
         />
-        <property prop="state" name="项目状态" />
+        <property
+          prop="state"
+          name="上下架状态"
+          type="enum"
+          :options="{ options: shelfState }"
+        />
+        <property prop="stateText" name="项目进度" />
         <property prop="github" name="仓库地址" />
         <property prop="role" name="角色" />
         <property prop="url" name="预览地址" />
@@ -57,5 +64,10 @@ import Basic from './basic'
 })
 export default class extends Basic<Project> {
   protected readonly modelName = '项目'
+
+  shelfState = [
+    { label: '已上架', value: 1 },
+    { label: '已下架', value: 2 }
+  ]
 }
 </script>
