@@ -130,10 +130,13 @@ export const actions: ActionTree<State, Root> = {
   async getTop5Article({ commit }) {
     try {
       const res: any = await http.get('dashboard/getTop5Article')
-      const axis = res.map(i => {
+      const res2 = res.sort((a, b) => {
+        return Number(a.value) - Number(b.value)
+      })
+      const axis = res2.map(i => {
         return i.name
       })
-      const data = res.map(i => {
+      const data = res2.map(i => {
         return Number(i.value)
       })
       commit('M_SET_ARTICLEPVTOP5', { data: data, name: '阅读量' })
