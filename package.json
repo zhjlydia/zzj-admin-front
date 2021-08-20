@@ -13,7 +13,6 @@
     "codemirror": "^5.55.0",
     "dayjs": "^1.8.28",
     "element-ui": "^2.13.2",
-    "js-cookie": "^2.2.1",
     "highlight.js": "^10.1.1",
     "lodash": "^4.17.20",
     "vue": "^2.6.11",
@@ -26,7 +25,6 @@
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
-    "@types/js-cookie": "^2.2.6",
     "@types/webpack-env": "^1.15.2",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",

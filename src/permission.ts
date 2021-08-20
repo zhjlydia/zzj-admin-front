@@ -4,7 +4,7 @@ import router from './router'
 import { Route } from 'vue-router'
 import * as user from '@/store/modules/user'
 import store from '@/store'
-import { getToken } from '@/plugins/cookies'
+import { getToken } from '@/plugins/token'
 
 const whiteList = ['/login']
 

@@ -3,9 +3,14 @@
 import axios from 'axios'
 
 const http = axios.create({ baseURL: 'api/' })
+import store from '@/store'
 
 http.interceptors.request.use(
-  config => {
+  async config => {
+    await store.dispatch('user/getTokenFromStorage')
+    if (store.state.user && store.state.user.token) {
+      config.headers.authorization = `Bearer ${store.state.user.token}`
+    }
     return config
   },
   error => {

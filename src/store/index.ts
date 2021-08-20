@@ -10,6 +10,7 @@ Vue.use(Vuex)
 
 export interface State {
   jobs: number
+  user?: user.State
 }
 
 const state: State = {

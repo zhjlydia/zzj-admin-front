@@ -1,7 +1,7 @@
 /** @format */
 import http from '@/apis'
 import User from '@/model/user'
-import { setToken } from '@/plugins/cookies'
+import { setToken, getToken } from '@/plugins/token'
 import { ActionTree, MutationTree } from 'vuex'
 import { State as Root } from '..'
 
@@ -32,6 +32,12 @@ export const actions: ActionTree<State, Root> = {
     const token = res
     setToken(token)
     commit('M_SET_TOKEN', token)
+  },
+  async getTokenFromStorage({ commit, state }) {
+    if (!state.token) {
+      const token = getToken()
+      commit('M_SET_TOKEN', token)
+    }
   },
   async logout({ commit }) {
     const token = ''
